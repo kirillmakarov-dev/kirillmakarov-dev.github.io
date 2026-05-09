@@ -1,19 +1,73 @@
-# 66kirill66.github.io
+# kirillmakarov-dev.github.io
 
-Static GitHub Pages portfolio for a Senior Unity Developer / Tech Lead profile.
+Portfolio site for Kirill Makarov, Senior Unity Developer / Tech Lead.
 
-Positioning:
-Unity Developer | Tech Lead | Multiplayer | Scalable Systems | WebGL, Mobile & Desktop
+Live positioning:
+- Unity Developer
+- Tech Lead
+- Multiplayer Systems
+- Scalable Architecture
+- WebGL, Desktop, and Mobile Delivery
 
-Updated sections:
+## Stack
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- GSAP
+- Lucide React
+
+## Sections
+
 - Hero
 - About
-- Expertise
+- Core Expertise
 - Featured Projects
 - Architecture
-- Archive / Previous Work
+- Archive
+- Technologies & Tools
 - Contact
 
-Notes:
-- The site remains plain static HTML + CSS with no frameworks or build tools.
-- The Download CV button currently points to docs/Kirill_Makarov_CV.pdf. Add your CV file there when ready.
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+The local development server runs on `http://localhost:3000`.
+
+## Production Build
+
+```bash
+npm run build
+```
+
+The production output is generated in `dist/`.
+
+## GitHub Pages Deployment
+
+This repository is configured for GitHub Pages deployment through GitHub Actions.
+
+Deployment flow:
+
+1. Push changes to `main`
+2. GitHub Actions installs dependencies and builds the Vite app
+3. The generated `dist/` folder is published to GitHub Pages
+
+Because this repository is the user site repository (`kirillmakarov-dev.github.io`), the site is published at the root domain.
+
+## Assets
+
+- Public images are stored in `public/images`
+- The downloadable CV is stored at `public/Kirill-Makarov-CV.pdf`
+
+## Project Structure
+
+```text
+public/       Static assets served directly by Vite
+src/          React application source
+src/sections/ Portfolio page sections
+src/components/ui/ Reusable UI primitives
+```

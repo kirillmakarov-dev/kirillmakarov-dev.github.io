@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Github, ExternalLink, Check } from 'lucide-react';
+import { Check, ExternalLink, LockKeyhole, Mail } from 'lucide-react';
+import ElectricBorder from '@/components/ElectricBorder';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,8 +13,11 @@ interface Project {
   features: string[];
   tags: string[];
   image: string;
-  links: { type: string; url: string }[];
+  video?: string;
+  links: { type: 'demo' | 'request'; label: string; url: string }[];
 }
+
+const requestDetailsUrl = '#contact';
 
 const projects: Project[] = [
   {
@@ -27,8 +31,10 @@ const projects: Project[] = [
     ],
     tags: ['Unity', 'Photon', 'C#', 'Multiplayer'],
     image: '/images/project-1.jpg',
+    video: '/videos/projects/photon-multiplayer-system.mp4',
     links: [
-      { type: 'github', url: 'https://github.com/kirillmakarov-dev' },
+      { type: 'demo', label: 'Watch demo', url: '/videos/projects/photon-multiplayer-system.mp4' },
+      { type: 'request', label: 'Code on request', url: requestDetailsUrl },
     ],
   },
   {
@@ -42,8 +48,10 @@ const projects: Project[] = [
     ],
     tags: ['Unity', 'Firebase', 'WebGL', 'JavaScript'],
     image: '/images/project-3.jpg',
+    video: '/videos/projects/firebase-webgl-integration.mp4',
     links: [
-      { type: 'github', url: 'https://github.com/kirillmakarov-dev' },
+      { type: 'demo', label: 'Watch demo', url: '/videos/projects/firebase-webgl-integration.mp4' },
+      { type: 'request', label: 'Code on request', url: requestDetailsUrl },
     ],
   },
   {
@@ -57,8 +65,10 @@ const projects: Project[] = [
     ],
     tags: ['Unity', 'C#', 'Architecture', 'SOLID'],
     image: '/images/project-4.jpg',
+    video: '/videos/projects/scalable-unity-architecture.mp4',
     links: [
-      { type: 'github', url: 'https://github.com/kirillmakarov-dev' },
+      { type: 'demo', label: 'Watch demo', url: '/videos/projects/scalable-unity-architecture.mp4' },
+      { type: 'request', label: 'Code on request', url: requestDetailsUrl },
     ],
   },
 ];
@@ -90,63 +100,96 @@ export default function ProjectsSection() {
             FEATURED PROJECTS
           </span>
         </h2>
-        <p className="projects-title text-center text-[var(--text-secondary)] text-lg mb-14 max-w-2xl mx-auto">
-          Selected work focused on gameplay systems and engineering ownership.
+        <p className="projects-title text-center text-[var(--text-secondary)] text-lg mb-14 max-w-3xl mx-auto">
+          Selected commercial work focused on gameplay systems and engineering ownership. Source code and implementation samples are available on request.
         </p>
 
         <div className="projects-grid grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {projects.map((project) => (
-            <div
+            <ElectricBorder
               key={project.id}
-              className="project-card group relative bg-[var(--bg-secondary)] rounded-lg overflow-hidden border border-[var(--border-color)] transition-all duration-500 hover:-translate-y-2 hover:border-[var(--cyan)]/40 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)]"
+              color="#7df9ff"
+              speed={0.65}
+              chaos={0.075}
+              borderRadius={8}
+              className="project-card rounded-lg transition-transform duration-500 hover:-translate-y-2"
             >
-              <div className="relative aspect-video overflow-hidden">
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/60 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyan)] transition-colors duration-300 mb-3 uppercase tracking-wider" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                  {project.title}
-                </h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
-                  {project.description}
-                </p>
-
-                <ul className="space-y-2 mb-5">
-                  {project.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                      <Check size={14} className="text-[var(--neon-green)] mt-0.5 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="text-xs text-[var(--cyan)] bg-[var(--cyan)]/10 px-2 py-1 rounded border border-[var(--cyan)]/20" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-                      {tag}
-                    </span>
-                  ))}
+              <div className="group relative overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--bg-secondary)] transition-all duration-500 hover:border-[var(--cyan)]/40 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)]">
+                <div className="relative aspect-video overflow-hidden">
+                  {project.video ? (
+                    <video
+                      src={project.video}
+                      poster={project.image}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      onMouseEnter={(event) => event.currentTarget.play()}
+                      onMouseLeave={(event) => {
+                        event.currentTarget.pause();
+                        event.currentTarget.currentTime = 0;
+                      }}
+                    />
+                  ) : (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/60 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
                 </div>
 
-                <div className="flex gap-4">
-                  {project.links.map((link) => (
-                    <a
-                      key={link.type}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-[var(--text-secondary)] text-sm font-medium hover:text-[var(--cyan)] transition-colors duration-300"
-                    >
-                      {link.type === 'github' && <Github size={16} />}
-                      {link.type === 'external' && <ExternalLink size={16} />}
-                      {link.type === 'github' ? 'GitHub' : 'View'}
-                    </a>
-                  ))}
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--cyan)] transition-colors duration-300 mb-3 uppercase tracking-wider" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+
+                  <ul className="space-y-2 mb-5">
+                    {project.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+                        <Check size={14} className="text-[var(--neon-green)] mt-0.5 flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mb-5 flex items-start gap-2 rounded-md border border-[var(--border-color)] bg-[var(--bg-primary)]/50 p-3 text-xs leading-relaxed text-[var(--text-secondary)]">
+                    <LockKeyhole size={14} className="mt-0.5 flex-shrink-0 text-[var(--magenta)]" />
+                    Commercial project: repository access is restricted; code and architecture examples can be shared privately on request.
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="text-xs text-[var(--cyan)] bg-[var(--cyan)]/10 px-2 py-1 rounded border border-[var(--cyan)]/20" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {project.links.map((link) => (
+                      <a
+                        key={link.type}
+                        href={link.url}
+                        target={link.type === 'demo' ? '_blank' : undefined}
+                        rel={link.type === 'demo' ? 'noopener noreferrer' : undefined}
+                        className={
+                          link.type === 'demo'
+                            ? 'inline-flex items-center justify-center gap-2 rounded-md border border-[var(--cyan)]/50 bg-[var(--cyan)]/10 px-3 py-2 text-xs font-bold uppercase tracking-wider text-[var(--cyan)] transition-all duration-300 hover:bg-[var(--cyan)] hover:text-[var(--bg-primary)]'
+                            : 'inline-flex items-center justify-center gap-2 rounded-md border border-[var(--border-color)] bg-[var(--bg-primary)]/40 px-3 py-2 text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--magenta)]/50 hover:text-[var(--magenta)]'
+                        }
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        {link.type === 'demo' && <ExternalLink size={16} />}
+                        {link.type === 'request' && <Mail size={16} />}
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            </ElectricBorder>
           ))}
         </div>
       </div>

@@ -63,7 +63,7 @@ export default function HeroSection() {
     >
       <div className="hero-kicker mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)] backdrop-blur-sm">
         <span className="h-2 w-2 rounded-full bg-[var(--neon-green)]" />
-        Unity Developer and Tech Lead
+        Unity Developer and Technical Owner
       </div>
 
       <div className="hero-line text-center max-w-5xl">
@@ -71,14 +71,15 @@ export default function HeroSection() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-[0.02em] leading-[0.95] text-[var(--text-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          Multiplayer educational games, speech tooling, and WebGL systems.
+          End-to-end Unity systems, from architecture to polished gameplay.
         </h1>
       </div>
 
       <p className="hero-line mt-6 max-w-3xl text-center text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
         I build production-minded Unity experiences with clear gameplay loops,
-        scalable architecture, and UX that helps players understand what to do
-        in the first 10 seconds.
+        modular architecture, and UX that helps players understand what to do
+        in the first 10 seconds. The work here is owned end to end: design,
+        implementation, polish, and presentation.
       </p>
 
       <div className="hero-line mt-8 flex flex-wrap justify-center gap-3">
@@ -125,7 +126,7 @@ export default function HeroSection() {
 
       <div className="hero-line mt-14 flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">
         <span className="hidden h-px w-16 bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent sm:block" />
-        recruiter-friendly case studies with a cinematic finish
+        recruiter-friendly case studies with full technical ownership
         <span className="hidden h-px w-16 bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent sm:block" />
       </div>
 

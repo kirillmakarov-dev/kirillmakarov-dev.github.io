@@ -8,8 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 const highlights = [
   {
     icon: BadgeCheck,
-    title: 'Product mindset',
-    description: 'I shape MVPs so the first build is already understandable, usable, and worth reviewing.',
+    title: 'End-to-end ownership',
+    description: 'I plan the architecture, build the systems, and shape the final presentation myself.',
   },
   {
     icon: Layers3,
@@ -18,7 +18,7 @@ const highlights = [
   },
   {
     icon: MonitorPlay,
-    title: 'Delivery focus',
+    title: 'Portfolio-ready delivery',
     description: 'I care about the playable result, the technical notes, and how the work is presented.',
   },
 ];
@@ -84,15 +84,17 @@ export default function AboutSection() {
           </h2>
 
           <p className="about-copy mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            I am a Unity developer and technical lead focused on experiences that need
-            both strong interaction design and reliable engineering. The work here
-            centers on three main case studies: English Quest, Fluent, and a 2D WebGL game.
+            I am a Unity developer focused on experiences that need both strong
+            interaction design and reliable engineering. The projects here are
+            built and owned end to end by me, from architecture and systems to
+            gameplay polish and portfolio presentation.
           </p>
 
           <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
             My preferred shape of project is one where the player or learner quickly
             understands the loop, the architecture stays modular, and the final result
-            still feels presentable to a recruiter or stakeholder.
+            still feels convincing to a recruiter or stakeholder. That is the standard
+            I am aiming for in every case study on this site.
           </p>
 
           <div className="about-copy mt-8 grid gap-4 sm:grid-cols-3">

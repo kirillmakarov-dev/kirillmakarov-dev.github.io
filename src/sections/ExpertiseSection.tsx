@@ -1,58 +1,46 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Layers, Wifi, Database, Globe, Package, Gauge, Rocket, Users } from 'lucide-react';
+import { AudioLines, Gamepad2, Globe, Layers3, Mic2, Users } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const expertiseAreas = [
   {
-    icon: Layers,
-    title: 'Unity Architecture',
-    description: 'Modular gameplay systems, maintainable project structure, ScriptableObject workflows, event-driven communication, and scalable engineering practices.',
+    icon: Users,
+    title: 'Educational gameplay',
+    description: 'Quest loops, progression pacing, and multiplayer-friendly learning flow.',
     color: 'var(--cyan)',
   },
   {
-    icon: Wifi,
-    title: 'Photon Multiplayer',
-    description: 'Real-time synchronization, room/session flow, network-aware gameplay systems, and multiplayer architecture design.',
+    icon: Mic2,
+    title: 'Speech UX',
+    description: 'Microphone flow, pronunciation feedback, and low-friction practice states.',
     color: 'var(--magenta)',
   },
   {
-    icon: Database,
-    title: 'Firebase Integration',
-    description: 'Authentication systems, save/load pipelines, Firestore integration, and connected gameplay workflows.',
+    icon: Gamepad2,
+    title: 'Browser games',
+    description: '2D gameplay, readable animation, and controls that feel good in WebGL.',
     color: 'var(--neon-green)',
   },
   {
     icon: Globe,
-    title: 'WebGL & JavaScript Bridge',
-    description: 'Browser integration, JavaScript interoperability, runtime messaging, and handling WebGL platform limitations.',
+    title: 'WebGL delivery',
+    description: 'Asset budgets, build constraints, and stable performance on the open web.',
     color: 'var(--cyan)',
   },
   {
-    icon: Package,
-    title: 'Addressables & Delivery',
-    description: 'Remote content delivery, asset streaming, build optimization, patch-ready structures, and scalable deployment pipelines.',
+    icon: Layers3,
+    title: 'Architecture',
+    description: 'Modular systems, event flow, and interfaces that keep the codebase scalable.',
     color: 'var(--magenta)',
   },
   {
-    icon: Gauge,
-    title: 'Performance Optimization',
-    description: 'Profiling, memory optimization, load-time improvements, compression workflows, and platform-specific tuning.',
+    icon: AudioLines,
+    title: 'Production polish',
+    description: 'Feedback timing, state clarity, and shipping-ready presentation details.',
     color: 'var(--neon-green)',
-  },
-  {
-    icon: Rocket,
-    title: 'Standalone Launcher',
-    description: 'Desktop bootstrap tools, authentication flow, patch systems, update delivery, and external process orchestration.',
-    color: 'var(--cyan)',
-  },
-  {
-    icon: Users,
-    title: 'Technical Leadership',
-    description: 'Mentoring developers, code reviews, architecture planning, onboarding workflows, and production pipeline management.',
-    color: 'var(--magenta)',
   },
 ];
 
@@ -64,38 +52,60 @@ export default function ExpertiseSection() {
       gsap.from('.exp-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },
         immediateRender: false,
-        y: 50, opacity: 0, duration: 0.8, ease: 'power3.out',
+        y: 28,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
       });
+
       gsap.from('.exp-card', {
         scrollTrigger: { trigger: '.exp-grid', start: 'top 80%', toggleActions: 'play none none none' },
         immediateRender: false,
-        y: 40, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out',
+        y: 24,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power3.out',
       });
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="expertise" ref={sectionRef} className="relative py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8" style={{ zIndex: 1 }}>
-      <div className="max-w-7xl mx-auto">
-        <h2 className="exp-title text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[0.08em] uppercase mb-6 text-center" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyan)] to-[var(--magenta)]">
-            CORE EXPERTISE
-          </span>
-        </h2>
-        <p className="exp-title text-center text-[var(--text-secondary)] text-lg mb-14 max-w-2xl mx-auto">
-          Core areas I bring to Unity production teams.
-        </p>
+    <section
+      id="expertise"
+      ref={sectionRef}
+      className="relative scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32"
+      style={{ zIndex: 1 }}
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="exp-title mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)]">
+            Core strengths
+          </div>
+          <h2
+            className="exp-title text-3xl font-bold uppercase tracking-[0.08em] sm:text-4xl lg:text-5xl"
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
+          >
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyan)] to-[var(--magenta)]">
+              What I bring to the team
+            </span>
+          </h2>
+          <p className="exp-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
+            This section is intentionally shorter and more specific, so it supports the
+            three headline projects instead of repeating the same ideas in a different way.
+          </p>
+        </div>
 
-        <div className="exp-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="exp-grid mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {expertiseAreas.map((area) => (
             <div
               key={area.title}
-              className="exp-card group p-6 rounded-lg border border-[var(--border-color)] bg-[var(--bg-secondary)]/50 hover:-translate-y-2 transition-all duration-500"
-              style={{ '--hover-color': area.color } as React.CSSProperties}
+              className="exp-card group rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-[var(--cyan)]/30"
             >
               <div
-                className="inline-flex items-center justify-center w-12 h-12 rounded-lg border mb-4 transition-all duration-300 group-hover:scale-110"
+                className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border"
                 style={{
                   borderColor: `${area.color}40`,
                   backgroundColor: `${area.color}10`,
@@ -103,13 +113,15 @@ export default function ExpertiseSection() {
               >
                 <area.icon size={22} style={{ color: area.color }} />
               </div>
-              <h3 className="text-base font-bold text-[var(--text-primary)] mb-2 uppercase tracking-wider" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              <h3
+                className="text-base font-bold uppercase tracking-[0.12em] text-[var(--text-primary)]"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              >
                 {area.title}
               </h3>
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+              <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
                 {area.description}
               </p>
-              <div className="mt-4 h-[2px] w-0 bg-gradient-to-r from-[var(--cyan)] to-[var(--magenta)] transition-all duration-500 group-hover:w-full" />
             </div>
           ))}
         </div>

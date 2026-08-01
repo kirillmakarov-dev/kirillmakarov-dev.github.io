@@ -15,6 +15,10 @@ export default function ParticleCanvas() {
   const animationRef = useRef<number>(0);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -125,20 +129,22 @@ export default function ParticleCanvas() {
       mouseRef.current = { x: -1000, y: -1000 };
     }
 
+    function handleResize() {
+      resize();
+      createParticles();
+    }
+
     resize();
     createParticles();
     drawParticles();
 
-    window.addEventListener('resize', () => {
-      resize();
-      createParticles();
-    });
+    window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       cancelAnimationFrame(animationRef.current);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
     };

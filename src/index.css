@@ -69,8 +69,8 @@
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
+    rgba(0, 0, 0, 0.02) 2px,
+    rgba(0, 0, 0, 0.02) 4px
   );
 }
 
@@ -241,4 +241,23 @@
 
 .pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scanlines,
+  .pulse-glow,
+  .pulse-dot,
+  .glitch-wrapper.active::before,
+  .glitch-wrapper.active::after,
+  .cursor-blink::after {
+    animation: none !important;
+  }
+
+  .scanlines {
+    display: none;
+  }
 }

@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
+  { label: 'WORK', href: '#projects' },
   { label: 'ABOUT', href: '#about' },
   { label: 'EXPERTISE', href: '#expertise' },
-  { label: 'PROJECTS', href: '#projects' },
   { label: 'ARCHITECTURE', href: '#architecture' },
   { label: 'STACK', href: '#skills' },
   { label: 'CONTACT', href: '#contact' },
@@ -69,6 +69,8 @@ export default function Navigation() {
             className="md:hidden text-[var(--text-primary)] p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -76,6 +78,7 @@ export default function Navigation() {
       </div>
 
       <div
+        id="mobile-nav"
         className={`fixed inset-0 bg-[rgba(10,10,15,0.98)] z-40 transition-all duration-500 md:hidden ${
           mobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}

@@ -1,46 +1,44 @@
-import { useEffect, useState, useRef } from 'react';
-import { useTypewriter } from '../hooks/useTypewriter';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ArrowRight, Download, Mail } from 'lucide-react';
 
 export default function HeroSection() {
-  const { displayedText } = useTypewriter('Unity Developer | Tech Lead | Multiplayer | Scalable Systems', 50, 500);
-  const [glitchActive, setGlitchActive] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Periodic glitch effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 300);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // GSAP entrance animation
   useEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.from('.hero-kicker', {
+        y: 18,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+      });
+
       gsap.from('.hero-line', {
-        y: 30,
+        y: 28,
         opacity: 0,
-        duration: 1,
-        stagger: 0.2,
+        duration: 0.9,
+        stagger: 0.12,
         ease: 'power3.out',
-        delay: 0.3,
+        delay: 0.08,
       });
-      gsap.from('.hero-desc', {
-        y: 20,
+
+      gsap.from('.hero-chip', {
+        y: 18,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.7,
+        stagger: 0.08,
         ease: 'power3.out',
-        delay: 1.2,
+        delay: 0.45,
       });
+
       gsap.from('.hero-btn', {
-        y: 20,
+        y: 18,
         opacity: 0,
         duration: 0.8,
-        stagger: 0.15,
+        stagger: 0.12,
         ease: 'power3.out',
-        delay: 1.8,
+        delay: 0.7,
       });
     }, sectionRef);
 
@@ -60,79 +58,83 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center px-4"
+      className="relative min-h-screen flex flex-col items-center justify-center px-4 py-24 sm:px-6 lg:px-8 scroll-mt-24"
       style={{ zIndex: 1 }}
     >
-      {/* Title */}
-      <div className="hero-line text-center mb-4 max-w-5xl">
+      <div className="hero-kicker mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)] backdrop-blur-sm">
+        <span className="h-2 w-2 rounded-full bg-[var(--neon-green)]" />
+        Unity Developer and Tech Lead
+      </div>
+
+      <div className="hero-line text-center max-w-5xl">
         <h1
-          className={`glitch-wrapper text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-[0.05em] uppercase leading-tight ${
-            glitchActive ? 'active' : ''
-          }`}
-          data-text="Multiplayer gameplay systems, WebGL pipelines, and scalable Unity architecture."
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-[0.02em] leading-[0.95] text-[var(--text-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          <span className="text-[var(--text-primary)]">
-            Multiplayer gameplay systems, WebGL pipelines, and scalable Unity architecture
-          </span>
+          Multiplayer educational games, speech tooling, and WebGL systems.
         </h1>
       </div>
 
-      {/* Typewriter subtitle */}
-      <div
-        className="hero-line text-center mb-6 h-8"
-        style={{ fontFamily: "'JetBrains Mono', monospace" }}
-      >
-        <span className="text-[var(--cyan)] text-sm sm:text-base">
-          {displayedText}
-          {!displayedText.includes('Desktop') && (
-            <span className="animate-pulse">_</span>
-          )}
-        </span>
-      </div>
-
-      {/* Description */}
-      <p className="hero-desc text-center text-[var(--text-secondary)] text-base sm:text-lg max-w-3xl mb-10 leading-relaxed">
-        I build production-ready Unity applications with a focus on multiplayer systems,
-        performance optimization, scalable architecture, and real-world production constraints
-        across WebGL, desktop, and mobile platforms.
+      <p className="hero-line mt-6 max-w-3xl text-center text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
+        I build production-minded Unity experiences with clear gameplay loops,
+        scalable architecture, and UX that helps players understand what to do
+        in the first 10 seconds.
       </p>
 
-      {/* CTA Buttons */}
-      <div className="hero-btn flex flex-wrap justify-center gap-4">
+      <div className="hero-line mt-8 flex flex-wrap justify-center gap-3">
+        {['English Quest', 'Fluent', '2D WebGL Game'].map((item) => (
+          <span
+            key={item}
+            className="hero-chip rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-sm text-[var(--text-primary)]"
+            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <div className="hero-btn mt-10 flex flex-wrap justify-center gap-4">
         <button
           onClick={handleScrollToProjects}
-          className="group relative px-8 py-4 border border-[var(--cyan)] text-[var(--cyan)] font-bold tracking-[0.12em] text-sm uppercase transition-all duration-300 hover:bg-[var(--cyan)] hover:text-[var(--bg-primary)] hover:scale-105 hover:shadow-[0_0_20px_rgba(0,240,255,0.5)]"
+          className="group inline-flex items-center gap-2 rounded-full border border-[var(--cyan)] bg-[var(--cyan)]/10 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--cyan)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--cyan)] hover:text-[var(--bg-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          VIEW PROJECTS
-          <span className="inline-block ml-2 transition-transform duration-300 group-hover:translate-y-1">
-            ↓
-          </span>
+          View work
+          <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
         </button>
 
         <a
           href="/Kirill-Makarov-CV.pdf"
           download="Kirill-Makarov-CV.pdf"
-          className="hero-btn group relative px-8 py-4 border border-[var(--magenta)] text-[var(--magenta)] font-bold tracking-[0.12em] text-sm uppercase transition-all duration-300 hover:bg-[var(--magenta)] hover:text-[var(--bg-primary)] hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,160,0.5)]"
+          className="inline-flex items-center gap-2 rounded-full border border-[var(--magenta)] bg-[var(--magenta)]/10 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--magenta)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--magenta)] hover:text-[var(--bg-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          DOWNLOAD CV
+          <Download size={16} />
+          Download CV
         </a>
 
         <button
           onClick={handleScrollToContact}
-          className="hero-btn group relative px-8 py-4 border border-[var(--neon-green)] text-[var(--neon-green)] font-bold tracking-[0.12em] text-sm uppercase transition-all duration-300 hover:bg-[var(--neon-green)] hover:text-[var(--bg-primary)] hover:scale-105 hover:shadow-[0_0_20px_rgba(57,255,20,0.5)]"
+          className="inline-flex items-center gap-2 rounded-full border border-[var(--neon-green)] bg-[var(--neon-green)]/10 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--neon-green)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--neon-green)] hover:text-[var(--bg-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          CONTACT ME
+          <Mail size={16} />
+          Contact
         </button>
       </div>
 
-      {/* Scroll indicator */}
+      <div className="hero-line mt-14 flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+        <span className="hidden h-px w-16 bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent sm:block" />
+        recruiter-friendly case studies with a cinematic finish
+        <span className="hidden h-px w-16 bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent sm:block" />
+      </div>
+
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <div className="w-6 h-10 border-2 border-[var(--text-secondary)] rounded-full flex items-start justify-center p-1">
-          <div className="w-1.5 h-3 bg-[var(--cyan)] rounded-full animate-bounce" />
+        <div className="flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[var(--text-secondary)]">
+          <span>Scroll</span>
+          <div className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-[var(--text-secondary)] p-1">
+            <div className="h-3 w-1.5 animate-bounce rounded-full bg-[var(--cyan)]" />
+          </div>
         </div>
       </div>
     </section>

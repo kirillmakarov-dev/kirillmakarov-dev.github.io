@@ -221,6 +221,17 @@ export default function ProjectCaseStudyPage() {
               </div>
             </div>
 
+            {project.futureAiDirection ? (
+              <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+                <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  Future AI direction
+                </h2>
+                <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
+                  {project.futureAiDirection}
+                </p>
+              </div>
+            ) : null}
+
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 What I did

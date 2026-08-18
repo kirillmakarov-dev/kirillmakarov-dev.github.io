@@ -97,6 +97,14 @@ export default function AboutSection() {
             I am aiming for in every case study on this site.
           </p>
 
+          <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
+            I use Codex and modern AI-assisted development tools for prototyping,
+            debugging, architecture exploration, and implementation support while
+            retaining control of the technical decisions. I also integrate AI capabilities
+            into products where they fit, including local speech recognition and
+            intelligent interactive systems.
+          </p>
+
           <div className="about-copy mt-8 grid gap-4 sm:grid-cols-3">
             {highlights.map((item) => {
               const Icon = item.icon;

@@ -21,6 +21,7 @@ export interface ProjectCaseStudy {
   uxNotes: string[];
   details: string[];
   outcome: string;
+  futureAiDirection?: string;
   nextSteps: string[];
   videoSlot?: {
     path: string;
@@ -96,14 +97,14 @@ export const projects: ProjectCaseStudy[] = [
     slug: 'fluent',
     id: 2,
     title: 'Fluent',
-    subtitle: 'Local Speech Recognition and Pronunciation Analysis',
+    subtitle: 'Local Whisper and Pronunciation Practice',
     shortDescription:
-      'An offline-first speech practice experience focused on fast microphone capture, clear pronunciation feedback, and privacy-friendly processing.',
+      'An offline-first speech practice experience built around local Whisper transcription, microphone capture, transcript-based pronunciation feedback, and privacy-first processing.',
     heroDescription:
-      'Fluent is the most UX-heavy of the three main projects. It focuses on local speech recognition, pronunciation analysis, and a practice flow that feels calm, fast, and trustworthy.',
+      'Fluent is the most UX-heavy of the three main projects. It uses local Whisper speech recognition and transcript-based practice analysis in a flow designed to feel calm, fast, and trustworthy.',
     summary:
-      'A private, offline speech-practice app that uses local Whisper transcription and honest scoring to coach pronunciation without cloud dependency.',
-    stack: ['Unity', 'Whisper', 'C#', 'ScriptableObjects', 'Scene-owned UI'],
+      'A privacy-first speech-practice app that runs Whisper transcription locally and does not require a cloud speech-recognition service.',
+    stack: ['Unity', 'Whisper', 'Local AI', 'C#', 'ScriptableObjects', 'Scene-owned UI'],
     accent: '#FF00A0',
     heroImage: '/images/case-studies/fluent/hero.jpg',
     gallery: [
@@ -112,27 +113,28 @@ export const projects: ProjectCaseStudy[] = [
       '/images/case-studies/fluent/gallery-2.jpg',
       '/images/case-studies/fluent/gallery-3.jpg',
       '/images/case-studies/fluent/gallery-4.jpg',
+      '/images/case-studies/fluent/gallery-5.jpg',
     ],
-    tags: ['Speech', 'UX', 'Local', 'Analysis'],
+    tags: ['Speech', 'Whisper', 'Local AI', 'Privacy'],
     quickFacts: [
-      { label: 'Focus', value: 'Local speech analysis loop' },
-      { label: 'System', value: 'Microphone capture and response states' },
-      { label: 'UX', value: 'Low-friction practice and clear cues' },
+      { label: 'Focus', value: 'Local transcription and pronunciation practice' },
+      { label: 'System', value: 'On-device Whisper with microphone capture' },
+      { label: 'Privacy', value: 'No required cloud speech dependency' },
     ],
     whatIDid: [
       'Built the offline speech-practice loop around local Whisper transcription.',
       'Separated presentation, domain, services, and content for maintainable iteration.',
-      'Designed the result flow to explain confidence, word match, and rhythm without overclaiming phoneme scoring.',
+      'Designed the result flow around honest transcript matching and practice feedback without claiming phoneme-level scoring.',
     ],
     challenge:
       'Speech tools fail quickly when users cannot tell whether the app is listening, analyzing, or waiting for another attempt.',
     approach:
-      'I would present the flow as a calm, state-driven practice loop with very clear visual transitions between recording, analyzing, and review.',
+      'I built the experience as a calm, state-driven practice loop with clear transitions between recording, local transcription, and review.',
     architecture: [
-      'Microphone capture needs stable states and predictable permission handling.',
-      'Local processing keeps privacy concerns low and makes the loop feel responsive.',
-      'Pronunciation analysis should surface actionable feedback, not just a score.',
-      'The interface should encourage repetition without feeling heavy or clinical.',
+      'Microphone capture uses explicit states and predictable permission handling.',
+      'Whisper transcription runs locally, keeping speech processing offline and private.',
+      'Practice analysis compares recognized speech with lesson content and surfaces understandable feedback.',
+      'Presentation, domain, services, and content remain separated for maintainable iteration.',
     ],
     uxNotes: [
       'Make the listening state obvious with one dominant visual cue.',
@@ -142,10 +144,12 @@ export const projects: ProjectCaseStudy[] = [
     details: [
       'This project benefits from a very strong state model because speech interaction is subtle by nature and users need reassurance.',
       'The design should reduce hesitation: the user should instantly know when the microphone is active and when analysis is complete.',
-      'Because the product is local-first, the privacy story is also a UX story; that should be visible in the copy and the structure of the page.',
+      'Because speech recognition runs locally, recordings do not need to be sent to a cloud transcription service. That privacy boundary is part of both the architecture and the user experience.',
     ],
     outcome:
-      'The case study becomes a clear demonstration of product thinking, state clarity, and a calm interface for a potentially repetitive workflow.',
+      'The current vertical slice demonstrates local AI integration, privacy-first speech processing, clear interaction states, and honest pronunciation-practice feedback.',
+    futureAiDirection:
+      'Fluent is designed as a foundation for deeper AI-powered language coaching. Planned directions include conversational practice, contextual feedback, adaptive exercises, AI-generated speaking scenarios, and a virtual speech coach. These are future capabilities, not features of the current build.',
     nextSteps: [
       'Add a simple state timeline for idle, recording, analyzing, and review.',
       'Show one screen dedicated to pronunciation feedback details.',

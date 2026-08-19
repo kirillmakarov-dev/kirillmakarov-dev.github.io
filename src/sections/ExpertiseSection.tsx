@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { AudioLines, Gamepad2, Globe, Layers3, Mic2, Users } from 'lucide-react';
+import { AudioLines, Braces, Globe, Network, Wrench, Users } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,33 +13,33 @@ const expertiseAreas = [
     color: 'var(--cyan)',
   },
   {
-    icon: Mic2,
-    title: 'Speech UX',
-    description: 'Microphone flow, pronunciation feedback, and low-friction practice states.',
+    icon: Network,
+    title: 'Multiplayer systems',
+    description: 'Photon Fusion ownership, local-player binding, spawning, and optional shared presence.',
     color: 'var(--magenta)',
   },
   {
-    icon: Gamepad2,
-    title: 'Browser games',
-    description: '2D gameplay, readable animation, and controls that feel good in WebGL.',
+    icon: Braces,
+    title: 'Data-driven architecture',
+    description: 'ScriptableObject authoring, event-based progression, and explicit runtime composition.',
     color: 'var(--neon-green)',
   },
   {
     icon: Globe,
     title: 'WebGL delivery',
-    description: 'Asset budgets, build constraints, and stable performance on the open web.',
+    description: 'Browser-focused build constraints, deployment workflows, and platform-aware delivery.',
     color: 'var(--cyan)',
   },
   {
-    icon: Layers3,
-    title: 'Architecture',
-    description: 'Modular systems, event flow, and interfaces that keep the codebase scalable.',
+    icon: AudioLines,
+    title: 'Speech and local AI',
+    description: 'Local Whisper integration, model profiles, microphone flow, and transparent scoring limits.',
     color: 'var(--magenta)',
   },
   {
-    icon: AudioLines,
-    title: 'Production polish',
-    description: 'Feedback timing, state clarity, and shipping-ready presentation details.',
+    icon: Wrench,
+    title: 'Editor tooling',
+    description: 'Scene validation, authoring support, deterministic setup, and maintenance-focused checks.',
     color: 'var(--neon-green)',
   },
 ];
@@ -48,6 +48,8 @@ export default function ExpertiseSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.exp-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },
@@ -93,8 +95,8 @@ export default function ExpertiseSection() {
             </span>
           </h2>
           <p className="exp-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            This section is intentionally shorter and more specific, so it supports the
-            three headline projects instead of repeating the same ideas in a different way.
+            I focus on gameplay-facing systems and the engineering boundaries that keep
+            them understandable, testable, and practical to maintain.
           </p>
         </div>
 

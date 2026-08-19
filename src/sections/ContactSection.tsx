@@ -15,6 +15,8 @@ export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.contact-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },

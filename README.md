@@ -1,13 +1,13 @@
 # kirillmakarov-dev.github.io
 
-Portfolio site for Kirill Makarov, Senior Unity Developer / Tech Lead.
+Portfolio site for Kirill Makarov, Unity Developer / Technical Game Developer.
 
 Live positioning:
 - Unity Developer
-- Tech Lead
-- Multiplayer Systems
-- Scalable Architecture
-- WebGL, Desktop, and Mobile Delivery
+- C# Gameplay Systems
+- Photon Fusion Multiplayer
+- Data-Driven Architecture
+- WebGL and Local AI Integration
 
 ## Stack
 

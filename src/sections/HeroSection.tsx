@@ -6,6 +6,8 @@ export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.hero-kicker', {
         y: 18,
@@ -63,7 +65,7 @@ export default function HeroSection() {
     >
       <div className="hero-kicker mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)] backdrop-blur-sm">
         <span className="h-2 w-2 rounded-full bg-[var(--neon-green)]" />
-        Unity Developer &amp; Tech Lead
+        Kirill Makarov &middot; Unity Developer
       </div>
 
       <div className="hero-line text-center max-w-5xl">
@@ -71,20 +73,18 @@ export default function HeroSection() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-[0.02em] leading-[0.95] text-[var(--text-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          End-to-end Unity systems, from architecture to polished gameplay.
+          Gameplay systems, multiplayer architecture, and interactive products.
         </h1>
       </div>
 
       <p className="hero-line mt-6 max-w-3xl text-center text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
-        I build production-minded Unity experiences with clear gameplay loops,
-        modular architecture, and UX that helps players understand what to do
-        in the first 10 seconds, including multiplayer and AI-powered interactive
-        experiences. The work here is owned end to end: design, implementation,
-        polish, and presentation.
+        I build Unity systems in C#, from gameplay and Photon Fusion multiplayer
+        to WebGL delivery and local AI integration. My work emphasizes explicit
+        ownership boundaries, maintainable runtime flows, and practical validation.
       </p>
 
       <div className="hero-line mt-8 flex flex-wrap justify-center gap-3">
-        {['English Quest', 'Fluent', '2D WebGL Game'].map((item) => (
+        {['Unity', 'C#', 'Photon Fusion', 'Gameplay Systems', 'WebGL', 'AI Integration'].map((item) => (
           <span
             key={item}
             className="hero-chip rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-sm text-[var(--text-primary)]"
@@ -101,7 +101,7 @@ export default function HeroSection() {
           className="group inline-flex items-center gap-2 rounded-full border border-[var(--cyan)] bg-[var(--cyan)]/10 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--cyan)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--cyan)] hover:text-[var(--bg-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          View work
+          View Case Studies
           <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
         </button>
 
@@ -123,12 +123,6 @@ export default function HeroSection() {
           <Mail size={16} />
           Contact
         </button>
-      </div>
-
-      <div className="hero-line mt-14 flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-        <span className="hidden h-px w-16 bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent sm:block" />
-        recruiter-friendly case studies with full technical ownership
-        <span className="hidden h-px w-16 bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent sm:block" />
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">

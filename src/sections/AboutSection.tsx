@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BadgeCheck, Layers3, MonitorPlay } from 'lucide-react';
+import { BadgeCheck, Bug, Layers3 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,9 +17,9 @@ const highlights = [
     description: 'I prefer modular systems, clear ownership boundaries, and workflows that stay maintainable.',
   },
   {
-    icon: MonitorPlay,
-    title: 'Portfolio-ready delivery',
-    description: 'I care about the playable result, the technical notes, and how the work is presented.',
+    icon: Bug,
+    title: 'Debugging and validation',
+    description: 'I use focused tooling and repeatable checks to keep runtime flows reliable as systems evolve.',
   },
 ];
 
@@ -27,6 +27,8 @@ export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.about-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },
@@ -86,23 +88,21 @@ export default function AboutSection() {
           <p className="about-copy mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
             I am a Unity developer focused on experiences that need both strong
             interaction design and reliable engineering. The projects here are
-            built and owned end to end by me, from architecture and systems to
-            gameplay polish and portfolio presentation.
+            built and owned end to end by me, from architecture and implementation
+            to debugging, tooling, and presentation.
           </p>
 
           <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            My preferred shape of project is one where the player or learner quickly
-            understands the loop, the architecture stays modular, and the final result
-            still feels convincing to a recruiter or stakeholder. That is the standard
-            I am aiming for in every case study on this site.
+            I work best where gameplay clarity and engineering constraints meet: defining
+            system boundaries, tracing runtime behaviour, and making delivery trade-offs
+            explicit rather than hiding complexity behind broad claims.
           </p>
 
           <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
             I use Codex and modern AI-assisted development tools for prototyping,
             debugging, architecture exploration, and implementation support while
-            retaining control of the technical decisions. I also integrate AI capabilities
-            into products where they fit, including local speech recognition and
-            intelligent interactive systems.
+            retaining control of the technical decisions and verification. Where it fits
+            the product, I integrate bounded capabilities such as local speech recognition.
           </p>
 
           <div className="about-copy mt-8 grid gap-4 sm:grid-cols-3">

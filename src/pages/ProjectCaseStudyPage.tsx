@@ -1,8 +1,9 @@
 import { useEffect, useMemo } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
-import { ArrowLeft, CheckCircle2, Github, Layers3, PlayCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ExternalLink, Github, Layers3, PlayCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ArchitectureFlowDiagram from '../components/ArchitectureFlowDiagram';
 import { getProjectBySlug } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,11 +17,15 @@ export default function ProjectCaseStudyPage() {
   const galleryImageClassName = project?.slug === 'fluent'
     ? 'aspect-video w-full rounded-2xl border border-[var(--border-color)] bg-[#091016] object-contain p-2'
     : 'aspect-video w-full rounded-2xl border border-[var(--border-color)] object-cover';
+  const role = project?.myRole ?? project?.whatIDid ?? [];
+  const tradeoffs = project?.tradeoffs ?? project?.uxNotes ?? [];
+  const boundaries = project?.boundaries ?? project?.nextSteps ?? [];
 
   useEffect(() => {
     if (!project) return;
 
     document.title = `${project.title} | Kirill Makarov`;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = gsap.context(() => {
       gsap.from('.case-hero', {
@@ -61,7 +66,7 @@ export default function ProjectCaseStudyPage() {
           </Link>
 
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-            Case study {project.id}
+            {project.status ?? `Case study ${project.id}`}
           </div>
         </div>
 
@@ -98,18 +103,34 @@ export default function ProjectCaseStudyPage() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="https://github.com/kirillmakarov-dev"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-5 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition-colors duration-300 hover:border-[var(--magenta)]/40 hover:text-[var(--magenta)]"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
-              >
-                <Github size={16} />
-                View on GitHub
-              </a>
-            </div>
+            {project.repositoryUrl || project.architectureUrl ? (
+              <div className="mt-8 flex flex-wrap gap-3">
+                {project.repositoryUrl ? (
+                  <a
+                    href={project.repositoryUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-5 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition-colors duration-300 hover:border-[var(--magenta)]/40 hover:text-[var(--magenta)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    <Github size={16} />
+                    View on GitHub
+                  </a>
+                ) : null}
+                {project.architectureUrl ? (
+                  <a
+                    href={project.architectureUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-5 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition-colors duration-300 hover:border-[var(--cyan)]/40 hover:text-[var(--cyan)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    <ExternalLink size={16} />
+                    Architecture notes
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
           </div>
 
           {project.heroImage ? (
@@ -138,11 +159,27 @@ export default function ProjectCaseStudyPage() {
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
                 {project.approach}
               </p>
+              {project.currentCapabilities?.length ? (
+                <div className="mt-6">
+                  <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    Current capabilities
+                  </h3>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {project.currentCapabilities.map((item) => (
+                      <div key={item} className="flex items-start gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm leading-relaxed text-[var(--text-secondary)]">
+                        <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-[var(--neon-green)]" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
+            {project.stack.length ? (
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                What I used
+                Technology
               </h2>
               <div className="mt-5 flex flex-wrap gap-2">
                 {project.stack.map((item) => (
@@ -156,6 +193,7 @@ export default function ProjectCaseStudyPage() {
                 ))}
               </div>
             </div>
+            ) : null}
 
             {project.videoSlot ? (
               <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
@@ -181,10 +219,14 @@ export default function ProjectCaseStudyPage() {
               </div>
             ) : null}
 
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+            {project.architecture.length || project.architectureFlow?.length ? (
+            <div className="case-panel min-w-0 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Core decisions
+                Architecture
               </h2>
+              {project.architectureFlow?.length ? (
+                <ArchitectureFlowDiagram lanes={project.architectureFlow} accent={project.accent} />
+              ) : null}
               <div className="mt-5 grid gap-3">
                 {project.architecture.map((item) => (
                   <div
@@ -197,13 +239,15 @@ export default function ProjectCaseStudyPage() {
                 ))}
               </div>
             </div>
+            ) : null}
 
+            {tradeoffs.length ? (
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                UX notes
+                Trade-offs
               </h2>
               <ul className="mt-5 space-y-3">
-                {project.uxNotes.map((item) => (
+                {tradeoffs.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-[var(--text-secondary)]">
                     <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full" style={{ backgroundColor: project.accent }} />
                     <span>{item}</span>
@@ -211,35 +255,55 @@ export default function ProjectCaseStudyPage() {
                 ))}
               </ul>
             </div>
+            ) : null}
 
+            {project.engineeringChallenges?.length || project.details.length ? (
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Story and context
+                {project.engineeringChallenges?.length ? 'Engineering challenges' : 'Engineering notes'}
               </h2>
-              <div className="mt-5 space-y-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-                {project.details.map((item) => (
-                  <p key={item}>{item}</p>
-                ))}
-              </div>
+              {project.engineeringChallenges?.length ? (
+                <div className="mt-5 grid gap-4">
+                  {project.engineeringChallenges.map((item) => (
+                    <article key={item.title} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-5">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>{item.title}</h3>
+                      <dl className="mt-4 grid gap-3 text-sm leading-relaxed sm:grid-cols-3">
+                        <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--magenta)]">Problem</dt><dd className="mt-1 text-[var(--text-secondary)]">{item.problem}</dd></div>
+                        <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--cyan)]">Decision</dt><dd className="mt-1 text-[var(--text-secondary)]">{item.decision}</dd></div>
+                        <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--neon-green)]">Result</dt><dd className="mt-1 text-[var(--text-secondary)]">{item.result}</dd></div>
+                      </dl>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-5 space-y-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
+                  {project.details.map((item) => <p key={item}>{item}</p>)}
+                </div>
+              )}
             </div>
+            ) : null}
 
-            {project.futureAiDirection ? (
+            {project.futureAiDirection || project.plannedDirection?.length ? (
               <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
                 <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                  Future AI direction
+                  Planned / Future direction
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-                  {project.futureAiDirection}
-                </p>
+                {project.futureAiDirection ? <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">{project.futureAiDirection}</p> : null}
+                {project.plannedDirection?.length ? (
+                  <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                    {project.plannedDirection.map((item) => <li key={item} className="rounded-2xl border border-dashed border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm text-[var(--text-secondary)]">{item}</li>)}
+                  </ul>
+                ) : null}
               </div>
             ) : null}
 
+            {role.length ? (
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                What I did
+                My role
               </h2>
               <div className="mt-5 space-y-3">
-                {project.whatIDid.map((item) => (
+                {role.map((item) => (
                   <div
                     key={item}
                     className="flex items-start gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm leading-relaxed text-[var(--text-secondary)]"
@@ -250,6 +314,7 @@ export default function ProjectCaseStudyPage() {
                 ))}
               </div>
             </div>
+            ) : null}
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
@@ -280,6 +345,8 @@ export default function ProjectCaseStudyPage() {
                       src={image}
                       alt={`${project.title} gallery`}
                       className={galleryImageClassName}
+                      loading="lazy"
+                      decoding="async"
                     />
                   ))}
                 </div>
@@ -288,26 +355,28 @@ export default function ProjectCaseStudyPage() {
 
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Outcome
+                Verified result
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">{project.outcome}</p>
             </div>
           </aside>
         </section>
 
+        {boundaries.length ? (
         <section className="case-panel mt-10 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
           <div className="flex items-center gap-2 text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
             <Layers3 size={16} className="text-[var(--magenta)]" />
-            Next steps for the case study
+            Current boundaries
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
-            {project.nextSteps.map((step) => (
+            {boundaries.map((step) => (
               <div key={step} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/60 p-4 text-sm leading-relaxed text-[var(--text-secondary)]">
                 {step}
               </div>
             ))}
           </div>
         </section>
+        ) : null}
 
         <div className="mt-10 flex justify-end rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
           <Link

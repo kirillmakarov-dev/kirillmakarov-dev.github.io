@@ -1,29 +1,32 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Github, Layers3 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Layers3 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const decisions = [
-  'Separation between input, combat logic, and presentation',
-  'Event-driven state changes instead of direct scene coupling',
-  'Lean UI feedback so the player always understands the current action',
-  'Performance-aware composition for WebGL and repeated interactions',
+  'Component responsibilities separate weapons, ammo storage, health, damage, and enemy behaviours',
+  'Magazine-based ammo keeps loaded rounds distinct from reserve ammunition',
+  'NavMesh movement works alongside separate enemy vision, hearing, and shooting components',
+  'UI reacts to gameplay events instead of polling weapon and health state',
+  'Animation presentation remains separate from gameplay decisions and damage logic',
 ];
 
 const flow = [
-  'Input',
-  'Player State',
-  'Combat Events',
-  'UI / Feedback',
-  'Services',
+  'Player Input',
+  'Weapon / Ammo',
+  'Damage / Health',
+  'Enemy AI',
+  'UI / Animation Events',
 ];
 
 export default function ArchitectureSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.arch-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },
@@ -58,7 +61,7 @@ export default function ArchitectureSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <div className="arch-title mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)]">
-            Additional architecture case study
+            Supporting course project
           </div>
           <h2
             className="arch-title text-3xl font-bold uppercase tracking-[0.08em] sm:text-4xl lg:text-5xl"
@@ -69,9 +72,8 @@ export default function ArchitectureSection() {
             </span>
           </h2>
           <p className="arch-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            This is the shorter supporting study in the portfolio: a compact look at
-            how I structure an action game, what I keep separate, and how I keep the
-            experience readable under pressure.
+            A course and teaching project used to practice component boundaries across
+            player combat, weapon state, damage, NavMesh enemies, UI, and animation.
           </p>
         </div>
 
@@ -90,7 +92,7 @@ export default function ArchitectureSection() {
                       {step}
                     </div>
                     {index < flow.length - 1 && (
-                      <ArrowUpRight className="hidden rotate-45 text-[var(--text-secondary)] md:block" size={16} />
+                      <ArrowRight className="hidden text-[var(--text-secondary)] md:block" size={16} aria-hidden="true" />
                     )}
                   </div>
                 ))}
@@ -115,33 +117,14 @@ export default function ArchitectureSection() {
               ))}
             </ul>
 
-            <div className="mt-8 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/60 p-4">
-              <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-                This case study stays intentionally shorter than the main three. It exists
-                to prove the architecture mindset without taking attention away from the
-                primary portfolio stories.
-              </p>
-            </div>
-
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="https://github.com/kirillmakarov-dev"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--cyan)]/40 bg-[var(--cyan)]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[var(--cyan)] transition-colors duration-300 hover:bg-[var(--cyan)] hover:text-[var(--bg-primary)]"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
-              >
-                <Github size={14} />
-                GitHub
-              </a>
-
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-primary)]/40 px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition-colors duration-300 hover:border-[var(--magenta)]/40 hover:text-[var(--magenta)]"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
                 <ArrowUpRight size={14} />
-                Request notes
+                Request Technical Notes
               </a>
             </div>
           </div>

@@ -12,6 +12,8 @@ export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.projects-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },
@@ -57,9 +59,8 @@ export default function ProjectsSection() {
             </span>
           </h2>
           <p className="projects-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            These are the headline projects I would want a recruiter to remember first:
-            a multiplayer educational RPG MVP, a speech and pronunciation product,
-            and a 2D WebGL game tuned for performance.
+            Unity case studies covering a multiplayer educational slice, a local
+            speech-practice prototype, and a WebGL project awaiting source audit.
           </p>
         </div>
 
@@ -107,6 +108,11 @@ export default function ProjectsSection() {
                     <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">
                       {project.shortDescription}
                     </p>
+                    {project.status ? (
+                      <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-[var(--magenta)]">
+                        {project.status}
+                      </p>
+                    ) : null}
                   </div>
 
                   <ul className="mt-5 space-y-3">
@@ -122,7 +128,7 @@ export default function ProjectsSection() {
                   </ul>
 
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
+                    {(project.technicalHighlights ?? project.tags).map((tag) => (
                       <span
                         key={tag}
                         className="rounded-full border border-[var(--border-color)] bg-[var(--bg-primary)]/60 px-3 py-1 text-xs text-[var(--text-primary)]"

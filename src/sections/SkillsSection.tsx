@@ -7,34 +7,28 @@ gsap.registerPlugin(ScrollTrigger);
 const techStack = [
   'Unity',
   'C#',
-  'Photon',
-  'Firebase',
+  'Photon Fusion',
+  'Cinemachine',
   'WebGL',
-  'Addressables',
-  'ScriptableObjects',
-  'SOLID',
-  'Event-driven architecture',
-  'AI Integration',
-  'AI-Assisted Development',
-  'Codex',
+  'ScriptableObject',
   'Whisper',
-  'Local AI',
   'Git',
-  'Figma',
-  'Photoshop',
+  'Codex',
 ];
 
 const qualities = [
-  'Scans well on desktop and mobile',
-  'Supports recruiter-friendly case studies',
-  'Keeps supporting sections shorter than the main work',
-  'Balances cinematic feel with readable UX',
+  'Explicit ownership boundaries',
+  'Event-based communication',
+  'Validation tooling',
+  'Documented trade-offs',
 ];
 
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.skills-title', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none none' },

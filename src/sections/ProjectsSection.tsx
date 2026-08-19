@@ -74,20 +74,27 @@ export default function ProjectsSection() {
               className="project-card rounded-[18px]"
             >
               <article className="group h-full overflow-hidden rounded-[18px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/80 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-transform duration-500 hover:-translate-y-1">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={project.heroImage}
-                    alt={project.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/55 to-transparent" />
-                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white/80 backdrop-blur-sm">
-                    Case study {project.id}
+                {project.heroImage ? (
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={project.heroImage}
+                      alt={project.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/55 to-transparent" />
+                    <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white/80 backdrop-blur-sm">
+                      Case study {project.id}
+                    </div>
                   </div>
-                </div>
+                ) : null}
 
                 <div className="flex h-full flex-col p-6">
                   <div>
+                    {!project.heroImage ? (
+                      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-primary)]/40 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[var(--text-secondary)]">
+                        Case study {project.id}
+                      </div>
+                    ) : null}
                     <h3
                       className="text-lg font-bold uppercase tracking-[0.08em] text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[var(--cyan)]"
                       style={{ fontFamily: "'Orbitron', sans-serif" }}

@@ -10,7 +10,7 @@ export interface ProjectCaseStudy {
   summary: string;
   stack: string[];
   accent: string;
-  heroImage: string;
+  heroImage?: string;
   gallery: string[];
   tags: string[];
   quickFacts: Array<{ label: string; value: string }>;
@@ -43,8 +43,16 @@ export const projects: ProjectCaseStudy[] = [
       'A solo-first educational RPG MVP that uses quest flow, progression, and session-based play to turn English practice into a guided and repeatable game loop.',
     stack: ['Unity', 'C#', 'Photon Fusion', 'Firebase Auth', 'Unity Cloud Save', 'UniTask', 'Service Locator', 'ScriptableObjects'],
     accent: '#00F0FF',
-    heroImage: '/images/project-2.jpg',
-    gallery: ['/images/project-2.jpg', '/images/project-1.jpg', '/images/project-4.jpg'],
+    heroImage: '/images/case-studies/english-quest/English World cover.png',
+    gallery: [
+      '/images/case-studies/english-quest/1.png',
+      '/images/case-studies/english-quest/2.png',
+      '/images/case-studies/english-quest/3.png',
+      '/images/case-studies/english-quest/4.png',
+      '/images/case-studies/english-quest/5.png',
+      '/images/case-studies/english-quest/6.png',
+      '/images/case-studies/english-quest/7.png',
+    ],
     tags: ['Unity', 'Multiplayer', 'Education', 'MVP'],
     quickFacts: [
       { label: 'Focus', value: 'Quest flow and progression' },
@@ -89,8 +97,8 @@ export const projects: ProjectCaseStudy[] = [
       'Include one screenshot focused on teacher/admin controls if those exist later.',
     ],
     videoSlot: {
-      path: '/videos/case-studies/english-quest/english-quest-demo.mp4',
-      caption: 'Drop a short MP4 here for the English Quest demo reel.',
+      path: '/videos/case-studies/english-quest/english-quest-portfolio-reel_2026-08-19_20-04-07.mp4',
+      caption: 'A short walkthrough of the quest flow, learning activities, and solo-first progression loop.',
     },
   },
   {
@@ -173,8 +181,7 @@ export const projects: ProjectCaseStudy[] = [
       'A 2D browser game built for WebGL delivery, focused on responsive controls, readable combat, and performance-aware animation.',
     stack: ['Unity', 'WebGL', 'C#', '2D Gameplay', 'Optimization'],
     accent: '#39FF14',
-    heroImage: '/images/project-6.jpg',
-    gallery: ['/images/project-6.jpg', '/images/project-1.jpg', '/images/project-5.jpg'],
+    gallery: [],
     tags: ['WebGL', '2D', 'Optimization', 'Gameplay'],
     quickFacts: [
       { label: 'Focus', value: 'Browser-first gameplay' },

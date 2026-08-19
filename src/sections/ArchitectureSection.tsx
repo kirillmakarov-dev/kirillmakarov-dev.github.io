@@ -5,12 +5,6 @@ import { ArrowUpRight, Github, Layers3 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const screenshots = [
-  { src: '/images/project-5.jpg', alt: 'Additional architecture case study screenshot 1' },
-  { src: '/images/project-4.jpg', alt: 'Additional architecture case study screenshot 2' },
-  { src: '/images/project-1.jpg', alt: 'Additional architecture case study screenshot 3' },
-];
-
 const decisions = [
   'Separation between input, combat logic, and presentation',
   'Event-driven state changes instead of direct scene coupling',
@@ -83,14 +77,6 @@ export default function ArchitectureSection() {
 
         <div className="arch-layout mt-14 grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="arch-panel space-y-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {screenshots.map((shot) => (
-                <div key={shot.src} className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/60">
-                  <img src={shot.src} alt={shot.alt} className="h-full w-full object-cover" />
-                </div>
-              ))}
-            </div>
-
             <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/50 p-5">
               <div className="mb-3 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 <Layers3 size={16} className="text-[var(--cyan)]" />

@@ -65,7 +65,7 @@ export default function ProjectCaseStudyPage() {
           </div>
         </div>
 
-        <section className="case-hero grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+        <section className={`case-hero grid grid-cols-1 gap-8 ${project.heroImage ? 'lg:grid-cols-[1.1fr_0.9fr] lg:items-end' : ''}`}>
           <div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)]">
               {project.subtitle}
@@ -112,13 +112,15 @@ export default function ProjectCaseStudyPage() {
             </div>
           </div>
 
-          <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/70 p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
-            <img
-              src={project.heroImage}
-              alt={project.title}
-              className={heroImageClassName}
-            />
-          </div>
+          {project.heroImage ? (
+            <div className="rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/70 p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+              <img
+                src={project.heroImage}
+                alt={project.title}
+                className={heroImageClassName}
+              />
+            </div>
+          ) : null}
         </section>
 
         <section className="case-grid mt-14 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -265,22 +267,24 @@ export default function ProjectCaseStudyPage() {
               </div>
             </div>
 
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
-              <div className="flex items-center gap-2 text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                <Layers3 size={16} className="text-[var(--cyan)]" />
-                Gallery
+            {project.gallery.length > 0 ? (
+              <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+                <div className="flex items-center gap-2 text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  <Layers3 size={16} className="text-[var(--cyan)]" />
+                  Gallery
+                </div>
+                <div className="mt-5 grid gap-3">
+                  {project.gallery.map((image) => (
+                    <img
+                      key={image}
+                      src={image}
+                      alt={`${project.title} gallery`}
+                      className={galleryImageClassName}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="mt-5 grid gap-3">
-                {project.gallery.map((image) => (
-                  <img
-                    key={image}
-                    src={image}
-                    alt={`${project.title} gallery`}
-                    className={galleryImageClassName}
-                  />
-                ))}
-              </div>
-            </div>
+            ) : null}
 
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>

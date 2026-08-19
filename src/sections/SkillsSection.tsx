@@ -4,24 +4,114 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const techStack = [
-  'Unity',
-  'C#',
-  'Photon Fusion',
-  'Cinemachine',
-  'WebGL',
-  'ScriptableObject',
-  'Whisper',
-  'Git',
-  'Codex',
+type Technology = {
+  name: string;
+  emphasis?: 'primary' | 'specialization';
+};
+
+type TechnologyGroup = {
+  label: string;
+  technologies: Technology[];
+};
+
+const technologyGroups: TechnologyGroup[] = [
+  {
+    label: 'Core development',
+    technologies: [
+      { name: 'Unity', emphasis: 'primary' },
+      { name: 'C#', emphasis: 'primary' },
+      { name: 'Git' },
+      { name: 'GitHub' },
+      { name: 'Rider' },
+    ],
+  },
+  {
+    label: 'Game development',
+    technologies: [
+      { name: 'Photon Fusion', emphasis: 'specialization' },
+      { name: 'Addressables' },
+      { name: 'Unity Input System' },
+      { name: 'Unity Physics' },
+      { name: 'ScriptableObject' },
+      { name: 'Custom Editor Tools' },
+    ],
+  },
+  {
+    label: 'Platforms',
+    technologies: [
+      { name: 'WebGL', emphasis: 'specialization' },
+      { name: 'Desktop' },
+      { name: 'Mobile' },
+    ],
+  },
+  {
+    label: 'Art & content pipeline',
+    technologies: [
+      { name: 'Blender' },
+      { name: 'Photoshop' },
+      { name: 'Illustrator' },
+      { name: 'Figma' },
+    ],
+  },
+  {
+    label: 'AI & development tools',
+    technologies: [
+      { name: 'Codex' },
+      { name: 'OpenAI' },
+      { name: 'Whisper' },
+      { name: 'AI-assisted Development' },
+    ],
+  },
+  {
+    label: 'Web & integration',
+    technologies: [
+      { name: 'TypeScript' },
+      { name: 'JavaScript' },
+      { name: 'React' },
+      { name: 'Node.js' },
+      { name: 'ASP.NET Core' },
+    ],
+  },
 ];
 
-const qualities = [
-  'Explicit ownership boundaries',
-  'Event-based communication',
-  'Validation tooling',
-  'Documented trade-offs',
+const workingPrinciples = [
+  {
+    title: 'System-oriented development',
+    description: 'Build features as maintainable systems rather than isolated scripts.',
+  },
+  {
+    title: 'Clear ownership & responsibilities',
+    description: 'Keep gameplay, networking, UI, and presentation responsibilities explicit.',
+  },
+  {
+    title: 'Tools before repetition',
+    description: 'Automate repetitive setup and validation when tooling can reduce mistakes.',
+  },
+  {
+    title: 'Iterate & validate',
+    description: 'Prototype quickly, validate in-game, then refine where the project actually needs it.',
+  },
+  {
+    title: 'AI-augmented workflow',
+    description: 'Use AI to accelerate implementation, debugging, refactoring, and research while retaining engineering responsibility.',
+  },
+  {
+    title: 'Cross-discipline collaboration',
+    description: 'Work comfortably across code, gameplay, UI, assets, networking, and technical integration.',
+  },
 ];
+
+const chipStyles = {
+  primary: 'border-[var(--cyan)]/55 bg-[var(--cyan)]/10 text-[var(--cyan)]',
+  specialization: 'border-[var(--magenta)]/45 bg-[var(--magenta)]/10 text-[var(--text-primary)]',
+  supporting: 'border-[var(--border-color)]/80 bg-[var(--bg-primary)]/40 text-[var(--text-primary)]',
+};
+
+const chipDotStyles = {
+  primary: 'bg-[var(--cyan)] shadow-[0_0_8px_var(--cyan)]',
+  specialization: 'bg-[var(--magenta)] shadow-[0_0_8px_var(--magenta)]',
+  supporting: 'bg-[var(--text-secondary)]/45',
+};
 
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -80,21 +170,67 @@ export default function SkillsSection() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--magenta)] to-[var(--neon-green)]">
-              Tools that support the work
+              Technical stack & workflow
             </span>
           </h2>
         </div>
 
         <div className="mt-12">
-          <div className="tech-grid flex flex-wrap justify-center gap-3">
-            {techStack.map((tech) => (
-              <span
-                key={tech}
-                className="tech-chip cursor-default rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-sm text-[var(--text-primary)] transition-colors duration-300 hover:border-[var(--cyan)]/40 hover:text-[var(--cyan)]"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          <div className="tech-grid relative mx-auto max-w-6xl overflow-hidden rounded-[1.75rem] border border-[var(--border-color)] bg-[var(--bg-secondary)]/45 backdrop-blur-sm">
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--cyan)]/80 to-transparent"
+            />
+
+            {technologyGroups.map((group, index) => (
+              <article
+                key={group.label}
+                className={`tech-group relative grid gap-4 px-5 py-6 sm:px-7 md:grid-cols-[minmax(11rem,0.34fr)_1fr] md:gap-8 lg:px-9 ${
+                  index < technologyGroups.length - 1 ? 'border-b border-[var(--border-color)]/70' : ''
+                }`}
               >
-                {tech}
-              </span>
+                <div className="flex items-start gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="pt-0.5 text-[10px] font-semibold tracking-[0.14em] text-[var(--cyan)]/70"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className="min-w-0">
+                    <h3
+                      className="text-xs font-semibold uppercase leading-5 tracking-[0.16em] text-[var(--text-secondary)]"
+                      style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    >
+                      {group.label}
+                    </h3>
+                    <div
+                      aria-hidden="true"
+                      className="mt-2 h-px w-10 bg-gradient-to-r from-[var(--cyan)]/80 to-transparent"
+                    />
+                  </div>
+                </div>
+
+                <ul className="flex flex-wrap content-start gap-2" aria-label={`${group.label} technologies`}>
+                  {group.technologies.map((technology) => (
+                    <li
+                      key={technology.name}
+                      className={`tech-chip inline-flex min-h-9 items-center gap-2 rounded-full border px-3 py-1.5 text-xs sm:px-3.5 sm:text-sm ${
+                        chipStyles[technology.emphasis ?? 'supporting']
+                      }`}
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                          chipDotStyles[technology.emphasis ?? 'supporting']
+                        }`}
+                      />
+                      {technology.name}
+                    </li>
+                  ))}
+                </ul>
+              </article>
             ))}
           </div>
         </div>
@@ -109,13 +245,21 @@ export default function SkillsSection() {
             </h3>
           </div>
 
-          <div className="qualities-list mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:grid-cols-2">
-            {qualities.map((quality) => (
+          <div className="qualities-list mx-auto grid max-w-6xl grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {workingPrinciples.map((principle) => (
               <div
-                key={quality}
-                className="quality-item rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/40 p-4 text-sm text-[var(--text-secondary)]"
+                key={principle.title}
+                className="quality-item rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/40 p-5"
               >
-                {quality}
+                <h4
+                  className="text-sm font-semibold uppercase tracking-[0.08em] text-[var(--text-primary)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  {principle.title}
+                </h4>
+                <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                  {principle.description}
+                </p>
               </div>
             ))}
           </div>

@@ -8,38 +8,38 @@ gsap.registerPlugin(ScrollTrigger);
 const expertiseAreas = [
   {
     icon: Users,
-    title: 'Educational gameplay',
-    description: 'Quest loops, progression pacing, and multiplayer-friendly learning flow.',
+    title: 'Gameplay systems',
+    description: 'Quest systems, interactions, progression, player mechanics, game flow, and reusable gameplay features.',
     color: 'var(--cyan)',
   },
   {
     icon: Network,
-    title: 'Multiplayer systems',
-    description: 'Photon Fusion ownership, local-player binding, spawning, and optional shared presence.',
+    title: 'Multiplayer & networking',
+    description: 'Photon Fusion, player ownership, spawning, synchronization, local-player systems, and multiplayer gameplay architecture.',
     color: 'var(--magenta)',
   },
   {
     icon: Braces,
-    title: 'Data-driven architecture',
-    description: 'ScriptableObject authoring, event-based progression, and explicit runtime composition.',
+    title: 'Game architecture',
+    description: 'Modular C# systems, ScriptableObject data, event-based communication, clear runtime boundaries, and maintainable gameplay architecture.',
     color: 'var(--neon-green)',
   },
   {
     icon: Globe,
-    title: 'WebGL delivery',
-    description: 'Browser-focused build constraints, deployment workflows, and platform-aware delivery.',
+    title: 'WebGL development',
+    description: 'Unity WebGL development, browser constraints, deployment workflows, platform debugging, and performance-aware delivery.',
     color: 'var(--cyan)',
   },
   {
     icon: AudioLines,
-    title: 'Speech and local AI',
-    description: 'Local Whisper integration, model profiles, microphone flow, and transparent scoring limits.',
+    title: 'AI & interactive systems',
+    description: 'Local Whisper integration, model-driven features, and AI-assisted implementation, debugging, and technical exploration.',
     color: 'var(--magenta)',
   },
   {
     icon: Wrench,
-    title: 'Editor tooling',
-    description: 'Scene validation, authoring support, deterministic setup, and maintenance-focused checks.',
+    title: 'Tools & production workflow',
+    description: 'Unity editor tools, validation, debugging workflows, Git-based development, automated setup, and maintainability tooling.',
     color: 'var(--neon-green)',
   },
 ];
@@ -95,8 +95,8 @@ export default function ExpertiseSection() {
             </span>
           </h2>
           <p className="exp-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            I focus on gameplay-facing systems and the engineering boundaries that keep
-            them understandable, testable, and practical to maintain.
+            I build gameplay systems from prototype to production &mdash; combining Unity
+            architecture, multiplayer, WebGL, AI integration, and practical development tooling.
           </p>
         </div>
 

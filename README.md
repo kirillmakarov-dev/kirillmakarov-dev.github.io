@@ -24,7 +24,6 @@ Live positioning:
 - About
 - Core Expertise
 - Featured Projects
-- Architecture
 - Archive
 - Technologies & Tools
 - Contact

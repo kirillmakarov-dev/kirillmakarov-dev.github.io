@@ -3,7 +3,6 @@ import HeroSection from '../sections/HeroSection';
 import AboutSection from '../sections/AboutSection';
 import ExpertiseSection from '../sections/ExpertiseSection';
 import ProjectsSection from '../sections/ProjectsSection';
-import ArchitectureSection from '../sections/ArchitectureSection';
 import SkillsSection from '../sections/SkillsSection';
 import ContactSection from '../sections/ContactSection';
 import Footer from '../sections/Footer';
@@ -33,12 +32,6 @@ export default function HomePage() {
         </div>
 
         <ExpertiseSection />
-
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="h-px bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent" />
-        </div>
-
-        <ArchitectureSection />
 
         <div className="mx-auto max-w-7xl px-4">
           <div className="h-px bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent" />

@@ -7,6 +7,8 @@ interface ArchitectureFlowDiagramProps {
 }
 
 export default function ArchitectureFlowDiagram({ lanes, accent }: ArchitectureFlowDiagramProps) {
+  const hasOptionalLane = lanes.some((lane) => lane.optional);
+
   return (
     <section className="mt-6" aria-label="System architecture flow">
       <div className="grid min-w-0 gap-4">
@@ -54,9 +56,11 @@ export default function ArchitectureFlowDiagram({ lanes, accent }: ArchitectureF
         ))}
       </div>
 
-      <p className="mt-4 text-xs leading-relaxed text-[var(--text-secondary)]">
-        Solid lanes show the authored and solo runtime path. Dashed lanes are optional and do not own shared quest progression.
-      </p>
+      {hasOptionalLane ? (
+        <p className="mt-4 text-xs leading-relaxed text-[var(--text-secondary)]">
+          Solid lanes show the authored and solo runtime path. Dashed lanes are optional and do not own shared quest progression.
+        </p>
+      ) : null}
     </section>
   );
 }

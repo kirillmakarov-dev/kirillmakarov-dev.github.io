@@ -1,4 +1,4 @@
-export type ProjectSlug = 'english-quest' | 'fluent' | 'webgl-game';
+export type ProjectSlug = 'english-quest' | 'fluent' | 'hurricane-emergency' | 'everrealm-2d';
 
 export interface EngineeringChallenge {
   title: string;
@@ -267,42 +267,251 @@ export const projects: ProjectCaseStudy[] = [
     },
   },
   {
-    slug: 'webgl-game',
+    slug: 'hurricane-emergency',
     id: 3,
-    title: '2D WebGL Game',
-    subtitle: 'Source Project Selection Pending',
-    status: 'Case Study In Preparation',
+    title: 'Hurricane Emergency',
+    subtitle: 'Interactive Preparedness Simulation for WebGL',
     shortDescription:
-      'A reserved case-study route for a future 2D Unity WebGL project. Technical claims will be added only after the source project is selected and audited.',
+      'A 2D educational simulation that turns hurricane preparedness guidance into a complete decision-and-feedback loop. Learners select a scenario, build an action plan from correct choices and realistic distractors, then watch the selected sequence run in an animated scene.',
     heroDescription:
-      'This page intentionally remains incomplete. No source project has been selected, so implementation details, performance claims, and optimization results are not presented as current evidence.',
+      'Hurricane Emergency is a Unity WebGL learning experience built around ten preparedness scenarios, data-authored lesson content, ordered plan validation, animated simulation modes, and runtime feedback.',
     summary:
-      'The final case study will be based on inspected Unity source, build configuration, and reproducible browser validation.',
-    stack: [],
-    accent: '#39FF14',
-    gallery: [],
-    tags: ['WebGL', 'Source Audit Pending'],
-    technicalHighlights: ['Case Study In Preparation'],
-    quickFacts: [
-      { label: 'Status', value: 'Source project not yet selected' },
-      { label: 'Claims', value: 'Deferred until code and build audit' },
-      { label: 'Media', value: 'Not yet available' },
+      'The engineering focus is a reusable lesson pipeline: shared application flow owns navigation and assessment, while each scenario keeps control of its own animations, timing, and scene-specific behaviour.',
+    stack: ['Unity 6', 'C#', 'WebGL', 'URP 2D', 'ScriptableObject', 'uGUI', 'Unity Test Framework'],
+    accent: '#F6B73C',
+    heroImage: '/images/case-studies/Hurricane-Emergency/Hurricane-Emergency.png',
+    gallery: [
+      '/images/case-studies/Hurricane-Emergency/Screenshot 2026-09-13 171316.png',
+      '/images/case-studies/Hurricane-Emergency/Screenshot 2026-09-13 171409.png',
+      '/images/case-studies/Hurricane-Emergency/Screenshot 2026-09-13 171538.png',
+      '/images/case-studies/Hurricane-Emergency/Screenshot 2026-09-13 171709.png',
+      '/images/case-studies/Hurricane-Emergency/Screenshot 2026-09-13 171801.png',
     ],
-    whatIDid: [],
+    tags: ['Unity', 'WebGL', 'Educational Simulation', 'Data-Driven Content'],
+    technicalHighlights: ['10 Scenario Modes', 'Two-Stage Validation', 'Event-Driven Assessment', 'WebGL Bridge'],
+    quickFacts: [
+      { label: 'Learning scope', value: 'Ten hurricane-preparedness scenarios' },
+      { label: 'Core interaction', value: 'Build, order, and simulate an action plan' },
+      { label: 'Content model', value: 'ScriptableObject lesson catalog' },
+      { label: 'Assessment', value: 'Plan validation plus runtime event evaluation' },
+      { label: 'Platform', value: 'Unity WebGL with a JavaScript host bridge' },
+    ],
+    whatIDid: [
+      'Designed and implemented the shared lesson and simulation flow.',
+      'Built data-authored lesson definitions, rule selection, ordering, and validation.',
+      'Connected mode-owned animations to runtime assessment through simulation events.',
+      'Integrated prefab-authored UI, WebGL communication, editor tooling, and Edit Mode coverage.',
+    ],
+    myRole: [
+      'Application flow and simulation-mode architecture',
+      'Lesson data, plan builder, and validation pipeline',
+      'Runtime event assessment and user feedback states',
+      'WebGL bridge and browser-host integration boundary',
+      'Prefab-authored UI workflow, editor tools, and regression tests',
+    ],
     challenge:
-      'A credible WebGL case study requires a specific project, verified source, and browser evidence.',
+      'Ten lessons needed one predictable interaction model without moving scenario-specific animation logic into a large central controller.',
     approach:
-      'Select the real Unity project first, then document implementation ownership, platform constraints, and measured results from evidence.',
-    architecture: [],
-    uxNotes: [],
-    details: ['No gameplay, architecture, performance, asset-budget, or optimization claims are made before the source audit.'],
-    outcome: 'Current status: case-study structure reserved; implementation evidence not yet available.',
+      'A shared flow coordinates lesson selection, briefing, plan construction, simulation, and results. ScriptableObject assets define the educational content, while mode components execute their own sequences and report meaningful actions through a common event channel.',
+    currentCapabilities: [
+      'Ten selectable preparedness lessons across home, supplies, shelter, garden, and post-storm cleanup',
+      'Correct and distractor choices with explicit either-or relationships',
+      'Ordered and order-independent lesson policies',
+      'Animated execution of the learner-selected plan',
+      'Live correct, incorrect, duplicate, and out-of-order feedback',
+      'Unity-native flow with an optional JavaScript host integration path',
+    ],
+    architecture: [
+      'LevelCatalog and LevelDefinition assets keep lesson copy, objectives, actions, distractors, modes, and expected events outside UI controllers.',
+      'GameFlowController coordinates authored screens and repeatable prefab views without constructing the permanent UI hierarchy at runtime.',
+      'SimulationManager and GameModeFactory resolve the selected ISimulationMode while each mode owns its scene-specific animation sequence.',
+      'RuleValidator checks the selected plan before launch; RuntimeStepEvaluator independently evaluates events emitted during the simulation.',
+      'WebGLBridge publishes to the internal C# channel and isolates calls to the external JavaScript host.',
+    ],
+    architectureFlow: [
+      { title: 'Authored lesson data', description: 'Designer-editable educational content', nodes: ['Level catalog', 'Lesson definition', 'Rules + distractors', 'Expected events'] },
+      { title: 'Application flow', description: 'One interaction pipeline for every lesson', nodes: ['Lesson selection', 'Briefing', 'Plan builder', 'Launch context', 'Result state'] },
+      { title: 'Simulation runtime', description: 'Shared orchestration with mode-owned behaviour', nodes: ['Simulation manager', 'Mode factory', 'Scenario mode', 'Animator + coroutines'] },
+      { title: 'Assessment boundary', description: 'Intent and execution are checked separately', nodes: ['Rule validator', 'Simulation events', 'Runtime evaluator', 'Live feedback'] },
+      { title: 'WebGL integration', description: 'Browser-specific communication stays behind one bridge', nodes: ['WebGL bridge', 'C# event channel', 'JavaScript host'] },
+    ],
+    uxNotes: [
+      'The learner commits to a plan before the animation starts, making the outcome easier to connect to the original decisions.',
+      'Some safety procedures require strict ordering, while scenarios such as Garden View accept all required actions in any order.',
+      'Immediate runtime feedback distinguishes missing, incorrect, duplicate, and out-of-order actions instead of reducing the result to one final score.',
+    ],
+    tradeoffs: [
+      'All scenario roots live in one authored simulation scene, which simplifies shared coordination but increases scene setup responsibility.',
+      'Prefab-authored UI keeps visual control in the Unity Inspector, while serialized references require deliberate validation and maintenance tools.',
+      'Stable event and callback names protect the WebGL integration contract, so animation and host-facing changes must be coordinated carefully.',
+      'Scenario modes share lifecycle and queue contracts but retain custom timing where generic execution would obscure real animation requirements.',
+    ],
+    details: [],
+    engineeringChallenges: [
+      {
+        title: 'One flow across ten scenarios',
+        problem: 'Each lesson has different content and animation behaviour, but duplicating menu, rule, and result logic would make the experience difficult to maintain.',
+        decision: 'Keep lesson data in ScriptableObjects and route every scenario through the same application flow and mode contract.',
+        result: 'New lessons can reuse selection, briefing, validation, launch, feedback, and result states while preserving custom scene behaviour.',
+      },
+      {
+        title: 'Validate decisions and execution',
+        problem: 'Checking only the selected buttons would not prove that the animated sequence completed correctly.',
+        decision: 'Validate the plan before launch, then evaluate meaningful simulation events during playback.',
+        result: 'The system can report incorrect selections, ordering errors, duplicates, progress, and final completion through explicit states.',
+      },
+      {
+        title: 'Preserve mode-specific animation',
+        problem: 'A universal animation controller would couple unrelated characters, timings, and scene objects.',
+        decision: 'Use shared queues and lifecycle contracts only where behaviour matches, leaving concrete sequences inside their scenario modes.',
+        result: 'The application flow remains consistent without erasing the differences between lesson animations.',
+      },
+      {
+        title: 'Isolate WebGL communication',
+        problem: 'Browser callbacks could spread platform checks throughout gameplay and make Editor iteration dependent on a host page.',
+        decision: 'Route browser calls through WebGLBridge and keep a safe internal C# event path for Editor and standalone use.',
+        result: 'The same simulation flow can be developed in Unity and embedded in a larger web application through one controlled boundary.',
+      },
+    ],
+    outcome:
+      'The current repository and supplied capture show a complete lesson loop from scenario selection and plan construction to animated execution, live event feedback, and completion. Source coverage includes rule validation, ordered and unordered evaluation, lesson data, and exclusive choice behaviour.',
     nextSteps: [],
     boundaries: [
-      'No source project is currently attached to this case study.',
-      'No performance or optimization claims have been verified.',
-      'Technical highlights and media will follow a source and browser audit.',
+      'The portfolio presents an educational simulation prototype, not certified emergency guidance.',
+      'The WebGL bridge expects host callbacks only when the build is embedded in the larger web application.',
+      'Scenario visuals and timing remain authored per mode rather than generated from lesson data.',
+      'Additional screenshots will extend the gallery without changing the documented architecture.',
     ],
+    repositoryUrl: 'https://github.com/kirillmakarov-dev/Hurricane-Emergency-Simulation',
+    architectureUrl: 'https://github.com/kirillmakarov-dev/Hurricane-Emergency-Simulation/blob/main/Hurricane-Emergency/ARCHITECTURE.md',
+    videoSlot: {
+      path: '/videos/case-studies/Hurricane-Emergency/Hurricane-Emergency video.mp4',
+      caption: 'Portfolio capture of lesson selection, plan execution, live assessment, and the completed simulation flow.',
+    },
+  },
+  {
+    slug: 'everrealm-2d',
+    id: 4,
+    title: 'Everrealm',
+    subtitle: '2D Action-Platformer Vertical Slice',
+    status: 'Active Development',
+    shortDescription:
+      'A Unity 6 action-platformer vertical slice combining responsive traversal, projectile combat, character progression, physical loot, trading, and a node-based skill tree in a frozen fantasy world.',
+    heroDescription:
+      'Everrealm is a local single-player vertical slice built around data-authored content, explicit gameplay contracts, prefab-first presentation, and custom Unity Editor tools.',
+    summary:
+      'The project demonstrates how a compact playable slice can keep movement, combat, progression, economy, persistence, and presentation independently maintainable while still forming one cohesive gameplay loop.',
+    stack: ['Unity 6.3 LTS', 'C#', 'URP 2D', 'Physics2D', 'Input System', 'Cinemachine 3', 'ScriptableObject', 'Unity Test Framework'],
+    accent: '#39FF14',
+    heroImage: '/images/case-studies/Everrealm_2D_Platformer/Everrealm_2D_Platformer.png',
+    gallery: [
+      '/images/case-studies/Everrealm_2D_Platformer/gallery-1.webp',
+      '/images/case-studies/Everrealm_2D_Platformer/gallery-2.webp',
+      '/images/case-studies/Everrealm_2D_Platformer/gallery-3.webp',
+      '/images/case-studies/Everrealm_2D_Platformer/gallery-4.webp',
+      '/images/case-studies/Everrealm_2D_Platformer/gallery-5.webp',
+      '/images/case-studies/Everrealm_2D_Platformer/gallery-6.webp',
+    ],
+    tags: ['Unity 2D', 'Action Platformer', 'Gameplay Architecture', 'Active Development'],
+    technicalHighlights: ['Projectile Combat', 'Data-Driven Skills', 'Transactional Progression', 'Editor Tooling'],
+    quickFacts: [
+      { label: 'Scope', value: 'Playable portfolio vertical slice' },
+      { label: 'World', value: 'One main level plus focused debug scenes' },
+      { label: 'Combat', value: 'Projectile attacks and data-driven abilities' },
+      { label: 'Progression', value: 'XP, levels, profession tree, and loadout' },
+      { label: 'Quality', value: '83 authored EditMode test attributes' },
+    ],
+    whatIDid: [
+      'Built the traversal, combat, skill, progression, inventory, loot, and economy foundations.',
+      'Separated gameplay rules from animation, UI, Physics2D adapters, audio, and VFX presentation.',
+      'Implemented stable-ID JSON persistence and transaction-oriented autosave paths.',
+      'Created authoring, validation, inspection, and setup tools alongside EditMode regression coverage.',
+    ],
+    myRole: [
+      'Gameplay architecture and character composition',
+      'Combat, auto-attack, skills, buffs, and passive systems',
+      'Inventory, loot, shop, wallet, and progression systems',
+      'Skill-tree runtime, loadout, and save integration',
+      'Editor authoring tools, validators, and EditMode regression coverage',
+    ],
+    challenge:
+      'A broad action-platformer loop needs clear runtime ownership so responsive movement, combat, progression, economy, UI, and persistence can evolve without collapsing into one scene-specific controller.',
+    approach:
+      'Plain C# services own gameplay rules, focused MonoBehaviour adapters connect them to Unity, and ScriptableObjects provide read-only authoring data. Prefab-authored presentation reacts to committed results rather than owning gameplay truth.',
+    currentCapabilities: [
+      'Rigidbody2D traversal with sprinting, coyote time, input buffering, guarded jumps, landing states, and animation-aware collider resizing',
+      'Projectile attacks, combo definitions, active skills, buffs, passives, empowers, cooldowns, Energy costs, and centralized damage resolution',
+      'Skeleton and golem enemies with patrol, detection, chase, attack, damage aggro, grounded death, experience, and loot rewards',
+      'Physical world drops, stack-based inventory, consumables, currency wallet, merchant catalogs, and transactional buy and sell operations',
+      'XP and levels, ranked profession nodes, prerequisites, purchases, respec validation, learned abilities, and conflict-safe Skill Bar assignment',
+      'Prefab-authored UI, JSON persistence, pooled feedback, audio routing, content validators, save inspection, and repeatable Editor builders',
+    ],
+    architecture: [
+      'CharacterRoot acts as the composition boundary for input, movement, facing, animation, state, hit reaction, and player combat adapters; gameplay dependencies are explicit rather than global singletons.',
+      'CombatService accepts explicit DamageRequest values and returns DamageResult values consumed by targets and presentation.',
+      'ScriptableObject definitions describe classes, attacks, skills, effects, items, loot tables, progression, and skill-tree nodes without storing mutable runtime state.',
+      'Inventory, loot, economy, skill tree, progression, and save systems communicate through focused contracts and commit only after complete operations succeed.',
+      'Prefab-first UI keeps visible controls authored in Unity while presenters bind live state and react to gameplay results.',
+      'Editor builders and validators support repeatable content setup without becoming runtime dependencies.',
+    ],
+    architectureFlow: [
+      { title: 'Character traversal', description: 'Unity input and Physics2D adapted into explicit character state', nodes: ['Input router', 'Character root', 'Movement + jump', 'State + animation'] },
+      { title: 'Combat + feedback', description: 'Rules produce results; presentation consumes them', nodes: ['Attack or skill', 'Damage request', 'Combat service', 'Damage result', 'Audio + VFX + UI'] },
+      { title: 'Rewards + economy', description: 'Enemy outcomes become persistent player resources', nodes: ['Enemy death', 'Loot-table roll', 'World pickup', 'Inventory + wallet', 'Merchant transaction'] },
+      { title: 'Progression + persistence', description: 'Committed changes flow into the player build and save data', nodes: ['XP + level', 'Profession node', 'Skill loadout', 'Stable IDs', 'JSON autosave'] },
+    ],
+    uxNotes: [
+      'Combat feedback, HUD, and animation consume gameplay state without becoming its source of truth.',
+      'Skill-tree purchases and loadout changes save only after a committed action, avoiding partially persisted transactions.',
+      'Editor builders speed up repeatable setup, while final scene and prefab references remain visible for inspection.',
+    ],
+    tradeoffs: [
+      'The project prioritizes a stable local single-player loop before introducing multiplayer adapters or replication.',
+      'ID-based saves keep assets out of serialized player data, but identifiers need stable versioning as content grows.',
+      'The systems are intentionally concentrated in a portfolio vertical slice rather than presented as a content-complete game.',
+    ],
+    details: [],
+    engineeringChallenges: [
+      {
+        title: 'Responsive platformer movement',
+        problem: 'Physics, animation transitions, jump timing, and collider changes can make a 2D controller feel inconsistent at platform edges.',
+        decision: 'Use buffered input, coyote time, guarded impulses, explicit airborne states, and collider-aware ground checks.',
+        result: 'Traversal rules remain configurable and testable while animation and collision presentation stay aligned.',
+      },
+      {
+        title: 'One authoritative combat route',
+        problem: 'Animation, projectiles, VFX, HUD, and physics can become competing sources of damage and hit state.',
+        decision: 'Route attacks through explicit requests and results owned by CombatService.',
+        result: 'Feedback can change independently while defense, critical hits, tags, invulnerability, and death remain testable rules.',
+      },
+      {
+        title: 'Commit connected progression safely',
+        problem: 'A purchase can affect currency, node ranks, learned abilities, runtime effects, loadout slots, and persisted data.',
+        decision: 'Validate the complete operation, resolve slot conflicts, then publish committed changes and autosave stable IDs.',
+        result: 'Purchases, refunds, inventory changes, and loadout updates avoid exposing partially applied state.',
+      },
+      {
+        title: 'Scale content authoring',
+        problem: 'Skills, projectiles, prefabs, scenes, UI, save data, and node graphs create repetitive setup and validation work.',
+        decision: 'Build focused editors, builders, validators, and runtime inspection tools with narrow mutation boundaries.',
+        result: 'Content setup is repeatable and inspectable while runtime systems stay independent from Editor-only code.',
+      },
+    ],
+    outcome:
+      'The repository contains an integrated single-player vertical slice spanning traversal, projectile combat, enemy behaviour, rewards, trading, profession progression, loadouts, JSON persistence, prefab-authored UI, and dedicated Editor tooling. The source currently includes 83 authored EditMode test attributes across gameplay and UI regression suites.',
+    nextSteps: [],
+    boundaries: [
+      'The project is an active-development portfolio vertical slice with one main gameplay level and focused debug scenes.',
+      'It is currently a local single-player project; multiplayer, prediction, and replication are future work.',
+      'Full-tree respec UX and formal save-data versioning remain planned work.',
+      'A locally licensed third-party presentation package is intentionally excluded from the public repository; the custom gameplay, UI contracts, and Editor integration code remain public.',
+    ],
+    repositoryUrl: 'https://github.com/kirillmakarov-dev/Everrealm_2D_Platformer',
+    architectureUrl: 'https://github.com/kirillmakarov-dev/Everrealm_2D_Platformer/blob/main/Everrealm_2D/Assets/_Game/Docs/Architecture.md',
+    videoSlot: {
+      path: '/videos/case-studies/Everrealm_2D_Platformer/portfolio-video-everrealm_2026-09-13_18-58-18.mp4',
+      caption: 'Gameplay capture featuring traversal, combat, loot, trading, profession progression, and the skill-tree flow.',
+    },
   },
 ];
 

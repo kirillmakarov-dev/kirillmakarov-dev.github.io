@@ -13,7 +13,9 @@ export default function ProjectCaseStudyPage() {
   const project = useMemo(() => (slug ? getProjectBySlug(slug) : undefined), [slug]);
   const heroImageClassName = project?.slug === 'fluent'
     ? 'aspect-[4/3] w-full rounded-[18px] bg-[#091016] object-contain p-3'
-    : 'aspect-[4/3] w-full rounded-[18px] object-cover';
+    : project?.slug === 'hurricane-emergency' || project?.slug === 'everrealm-2d'
+      ? 'aspect-video w-full rounded-[18px] object-cover'
+      : 'aspect-[4/3] w-full rounded-[18px] object-cover';
   const galleryImageClassName = project?.slug === 'fluent'
     ? 'aspect-video w-full rounded-2xl border border-[var(--border-color)] bg-[#091016] object-contain p-2'
     : 'aspect-video w-full rounded-2xl border border-[var(--border-color)] object-cover';

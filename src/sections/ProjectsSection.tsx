@@ -55,16 +55,16 @@ export default function ProjectsSection() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyan)] via-[var(--magenta)] to-[var(--cyan)]">
-              Three primary case studies
+              Four primary case studies
             </span>
           </h2>
           <p className="projects-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            Unity case studies covering a multiplayer educational slice, a local
-            speech-practice prototype, and a WebGL project awaiting source audit.
+            Unity case studies covering multiplayer learning, local speech practice,
+            WebGL simulation, and a growing 2D action RPG systems foundation.
           </p>
         </div>
 
-        <div className="projects-grid mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+        <div className="projects-grid mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
           {projects.map((project) => (
             <ElectricBorder
               key={project.id}

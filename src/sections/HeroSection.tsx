@@ -73,18 +73,18 @@ export default function HeroSection() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-[0.02em] leading-[0.95] text-[var(--text-primary)]"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
-          Gameplay systems, multiplayer architecture, and interactive products.
+          Unity gameplay systems, multiplayer, and WebGL experiences.
         </h1>
       </div>
 
       <p className="hero-line mt-6 max-w-3xl text-center text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
-        I build Unity systems in C#, from gameplay and Photon Fusion multiplayer
-        to WebGL delivery and local AI integration. My work emphasizes explicit
-        ownership boundaries, maintainable runtime flows, and practical validation.
+        I build gameplay and technical systems in Unity and C#, with hands-on work
+        in Photon Fusion multiplayer and WebGL delivery. Local AI integration extends
+        that core when it provides a clear product benefit.
       </p>
 
       <div className="hero-line mt-8 flex flex-wrap justify-center gap-3">
-        {['Unity', 'C#', 'Photon Fusion', 'Gameplay Systems', 'WebGL', 'AI Integration'].map((item) => (
+        {['Unity', 'C#', 'Gameplay Systems', 'Photon Fusion', 'WebGL', 'Local AI Integration'].map((item) => (
           <span
             key={item}
             className="hero-chip rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-sm text-[var(--text-primary)]"

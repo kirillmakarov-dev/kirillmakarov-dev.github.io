@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, Check } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router';
 import ElectricBorder from '@/components/ElectricBorder';
 import { projects } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const featuredProjects = [...projects].sort((a, b) => a.id - b.id);
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -55,17 +57,17 @@ export default function ProjectsSection() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyan)] via-[var(--magenta)] to-[var(--cyan)]">
-              Four primary case studies
+              Personal Unity case studies
             </span>
           </h2>
           <p className="projects-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            Unity case studies covering multiplayer learning, local speech practice,
-            WebGL simulation, and a growing 2D action RPG systems foundation.
+            Four focused projects with playable demonstrations and public engineering evidence,
+            ordered for gameplay, multiplayer, WebGL, and AI-integrated Unity roles.
           </p>
         </div>
 
         <div className="projects-grid mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
-          {projects.map((project) => (
+          {featuredProjects.map((project) => (
             <ElectricBorder
               key={project.id}
               color={project.accent}
@@ -105,27 +107,20 @@ export default function ProjectsSection() {
                     <p className="mt-2 text-sm uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                       {project.subtitle}
                     </p>
+                    <div className="mt-4 flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.16em]">
+                      <span className="rounded-full border border-[var(--cyan)]/30 bg-[var(--cyan)]/10 px-3 py-1 text-[var(--cyan)]">
+                        {project.projectType}
+                      </span>
+                      <span className="text-[var(--text-secondary)]">{project.period} · {project.status}</span>
+                    </div>
                     <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">
                       {project.shortDescription}
                     </p>
-                    {project.status ? (
-                      <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-[var(--magenta)]">
-                        {project.status}
-                      </p>
-                    ) : null}
+                    <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">
+                      <span className="font-bold uppercase tracking-[0.12em] text-[var(--text-primary)]">My contribution: </span>
+                      {project.cardContribution}
+                    </p>
                   </div>
-
-                  <ul className="mt-5 space-y-3">
-                    {project.quickFacts.map((fact) => (
-                      <li key={fact.label} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                        <Check size={15} className="mt-0.5 flex-shrink-0 text-[var(--neon-green)]" />
-                        <span>
-                          <span className="text-[var(--text-primary)]">{fact.label}: </span>
-                          {fact.value}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {(project.technicalHighlights ?? project.tags).map((tag) => (

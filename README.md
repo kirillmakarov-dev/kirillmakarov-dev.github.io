@@ -21,12 +21,18 @@ Live positioning:
 ## Sections
 
 - Hero
-- About
+- Personal Unity Case Studies
+- Professional Context
 - Core Expertise
-- Featured Projects
-- Archive
-- Technologies & Tools
+- Technical Stack & Workflow
 - Contact
+
+Featured projects are presented in gameplay-role priority:
+
+1. Everrealm
+2. English Quest
+3. Hurricane Emergency
+4. Fluent
 
 ## Local Development
 

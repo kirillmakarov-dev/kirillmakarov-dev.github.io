@@ -19,6 +19,10 @@ export interface ProjectCaseStudy {
   id: number;
   title: string;
   subtitle: string;
+  projectType: string;
+  period: string;
+  status: string;
+  cardContribution: string;
   shortDescription: string;
   heroDescription: string;
   summary: string;
@@ -28,22 +32,14 @@ export interface ProjectCaseStudy {
   gallery: string[];
   tags: string[];
   quickFacts: Array<{ label: string; value: string }>;
-  whatIDid: string[];
-  challenge: string;
-  approach: string;
   architecture: string[];
-  uxNotes: string[];
-  details: string[];
   outcome: string;
-  futureAiDirection?: string;
-  nextSteps: string[];
   videoSlot?: { path: string; caption: string };
   repositoryUrl?: string;
   architectureUrl?: string;
-  status?: string;
-  myRole?: string[];
+  setupUrl?: string;
+  myRole: string[];
   technicalHighlights?: string[];
-  tradeoffs?: string[];
   engineeringChallenges?: EngineeringChallenge[];
   architectureFlow?: ArchitectureLane[];
   currentCapabilities?: string[];
@@ -54,9 +50,13 @@ export interface ProjectCaseStudy {
 export const projects: ProjectCaseStudy[] = [
   {
     slug: 'english-quest',
-    id: 1,
+    id: 2,
     title: 'English Quest',
     subtitle: 'Educational Unity Slice with Optional Multiplayer',
+    projectType: 'Personal vertical slice',
+    period: '2026',
+    status: 'Playable slice',
+    cardContribution: 'Built the quest pipeline, three mini-game integrations, Fusion ownership flow, local-player camera path, and scene validation tools.',
     shortDescription:
       'A playable educational slice that turns three English activities into a guided quest chain inside one open-world scene. The core learning flow works solo; Fusion adds two-player presence without taking ownership of quest progression.',
     heroDescription:
@@ -84,12 +84,6 @@ export const projects: ProjectCaseStudy[] = [
       { label: 'Multiplayer', value: 'Two-player Fusion Shared Mode' },
       { label: 'Progress ownership', value: 'Local quest state per player' },
     ],
-    whatIDid: [
-      'Designed and implemented the gameplay architecture and data-driven quest pipeline.',
-      'Integrated Fusion Shared Mode, player spawning, ownership-safe input, and local camera binding.',
-      'Built the runner-aware camera collision path for Fusion Multi-Peer physics scenes.',
-      'Created editor tooling for scene validation, rebuilding, and scene-authored HUD maintenance.',
-    ],
     myRole: [
       'Gameplay architecture and runtime composition',
       'Quest pipeline, objective events, and unlock flow',
@@ -97,17 +91,10 @@ export const projects: ProjectCaseStudy[] = [
       'Local-player camera and input infrastructure',
       'Editor validation and scene maintenance tools',
     ],
-    challenge:
-      'The slice needed to preserve a clear educational flow while supporting a second networked player without turning local quest state into shared co-op progression.',
-    approach:
-      'Quest content is authored through ScriptableObjects and composed explicitly in the scene. Mini-games publish objective events, the local quest runtime owns progression, and Fusion remains a separate presence layer.',
     architecture: [
-      'ScriptableObject data defines quest lines, lesson order, dialogue configuration, and mini-game bindings.',
-      'An explicit composition root wires the scene-authored runtime and presentation objects.',
-      'Objective events decouple mini-game completion from the quest state machine.',
-      'UnityServiceLocator is intentionally limited to a boundary for decoupled runtime contracts.',
-      'Scene-authored HUD and prefab-driven UI keep presentation visible and maintainable in the editor.',
-      'Validation tools check the authored scene and help rebuild or materialize required objects.',
+      'ScriptableObjects define quest order, dialogue, and mini-game bindings; objective events report completion without direct quest-state calls.',
+      'An explicit scene composition root wires gameplay and prefab-authored presentation, with service lookup limited to runtime contracts.',
+      'Fusion owns session presence, spawning, input, and cameras while each player retains independent quest state.',
     ],
     architectureFlow: [
       { title: 'Authored data', description: 'Editor-owned configuration', nodes: ['Quest lines', 'Dialogue config', 'Mini-game bindings'] },
@@ -115,19 +102,6 @@ export const projects: ProjectCaseStudy[] = [
       { title: 'Optional multiplayer', description: 'Presence without shared quest progression', nodes: ['Fusion session', 'Spawn + ownership', 'Local input + camera', 'Remote presence + status'], optional: true },
       { title: 'Study Circle', description: 'Optional shared world moment; not required by the core quest chain', nodes: ['Shared world trigger', 'Optional group moment'], optional: true },
     ],
-    uxNotes: [
-      'Solo-first flow keeps the lesson chain available when no second player joins.',
-      'Scene-authored UI improves editor visibility but requires validation to protect serialized references.',
-      'Local quest ownership avoids synchronization complexity at the cost of shared co-op progression.',
-      'The optional Study Circle creates a shared moment without becoming an MVP dependency.',
-    ],
-    tradeoffs: [
-      'Local quest state keeps each learner independent, so the current build does not synchronize quest completion between players.',
-      'Scene-authored presentation is transparent in the editor, but serialized scene links need explicit validation tooling.',
-      'The limited Service Locator reduces coupling at runtime boundaries without replacing direct references throughout the project.',
-      'Multiplayer is deliberately a presence layer; tightly coupled cooperative objectives are outside the current slice.',
-    ],
-    details: [],
     engineeringChallenges: [
       {
         title: 'Fusion Multi-Peer camera collision',
@@ -147,16 +121,9 @@ export const projects: ProjectCaseStudy[] = [
         decision: 'Publish completion through objective events consumed by the quest runtime.',
         result: 'Line Match, Letter Ordering, and Word Ordering can report outcomes through one progression boundary.',
       },
-      {
-        title: 'Scene reliability',
-        problem: 'Scene-authored HUD and composition objects are readable in the editor but vulnerable to broken serialized setup.',
-        decision: 'Add editor validation, rebuild, and HUD materialization tools around the authored scene.',
-        result: 'Maintenance checks can surface missing bindings before they become hidden runtime failures.',
-      },
     ],
     outcome:
       'The verified slice completes the Ada to Ben to Nora sequence with all three mini-games in solo runtime. The implemented multiplayer layer supports two-player Shared Mode presence with ownership-safe local input and camera binding.',
-    nextSteps: [],
     boundaries: [
       'Quest progress is local per player and is not synchronized.',
       'Multiplayer adds presence rather than mandatory cooperative progression.',
@@ -164,7 +131,8 @@ export const projects: ProjectCaseStudy[] = [
       'The portfolio scope is one authored open-world slice, not a complete game.',
     ],
     repositoryUrl: 'https://github.com/kirillmakarov-dev/English-Quest-Online',
-    architectureUrl: 'https://github.com/kirillmakarov-dev/English-Quest-Online/blob/main/Assets/_PortfolioSlice/Docs/Architecture.md',
+    architectureUrl: 'https://github.com/kirillmakarov-dev/English-Quest-Online/blob/main/English%20Quest%20online/Assets/_PortfolioSlice/Docs/Architecture.md',
+    setupUrl: 'https://github.com/kirillmakarov-dev/English-Quest-Online#running-the-project',
     videoSlot: {
       path: '/videos/case-studies/english-quest/english-quest-demo.mp4',
       caption: 'Gameplay capture of the authored world, quest interactions, learning activities, and two-player presence.',
@@ -172,9 +140,13 @@ export const projects: ProjectCaseStudy[] = [
   },
   {
     slug: 'fluent',
-    id: 2,
+    id: 4,
     title: 'Fluent',
     subtitle: 'Local Speech-Practice Prototype',
+    projectType: 'Personal prototype',
+    period: '2026',
+    status: 'Working prototype',
+    cardContribution: 'Built the microphone-to-transcription flow, local Whisper profiles, lesson data, saved progress, and transparent practice scoring.',
     shortDescription:
       'A Unity speech-practice prototype that records microphone input, transcribes it through a local Whisper service, and returns a transparent heuristic practice estimate against authored lesson content.',
     heroDescription:
@@ -201,21 +173,12 @@ export const projects: ProjectCaseStudy[] = [
       { label: 'Persistence', value: 'Saved practice progress' },
       { label: 'Coverage', value: 'Edit Mode tests for core settings and logic' },
     ],
-    whatIDid: [
-      'Built the microphone-to-local-transcription practice flow.',
-      'Separated presenter, domain, services, and authored lesson content.',
-      'Implemented model profiles, saved progress, heuristic scoring, and edit-mode coverage.',
-    ],
     myRole: [
       'Speech-practice flow and Unity integration',
       'Presenter, domain, and service boundaries',
       'Scene-owned UI binding and authored lesson catalog',
       'Whisper configuration profiles and validation tests',
     ],
-    challenge:
-      'Speech interaction needs clear recording and processing states, while recognition behaviour varies with model choice, input quality, and clip duration.',
-    approach:
-      'The prototype uses scene-authored presentation over separated runtime services. Three model profiles expose practical latency and recognition trade-offs instead of implying that one profile is universally best.',
     currentCapabilities: [
       'Local Whisper transcription from microphone input',
       'Microphone and model-profile selection',
@@ -225,42 +188,46 @@ export const projects: ProjectCaseStudy[] = [
       'Edit Mode coverage for core configuration and scoring behaviour',
     ],
     architecture: [
-      'Scene-owned UI keeps the presentation hierarchy inspectable and explicit.',
-      'Presenter, domain, services, and lesson content have separate responsibilities.',
-      'ScriptableObject assets define lesson content and Whisper model profiles.',
-      'Progress persistence remains separate from transcription and scoring services.',
-    ],
-    uxNotes: [
-      'Fast, Balanced, and Accurate profiles trade latency, resource use, and recognition behaviour; they are not a simple quality ladder.',
-      'Local processing improves the privacy boundary but depends on available hardware and model setup.',
-      'Transcript similarity is understandable and testable, but it cannot diagnose phonemes, stress, or accent quality.',
-    ],
-    tradeoffs: [
-      'Model profiles expose different latency and recognition behaviour rather than promising one universally superior setting.',
-      'Local transcription avoids a required cloud speech service but places model and compute requirements on the device.',
-      'The heuristic score is transparent and useful for repetition, but it is not phoneme-, stress-, or accent-level assessment.',
-    ],
-    details: [
-      'The UI remains authored in the scene while presenters bind runtime state to the existing hierarchy.',
-      'Lesson content and profile configuration are assets rather than hard-coded screen data.',
-      'Edit Mode tests cover core configuration and scoring behaviour; microphone and model runtime still require device-level validation.',
+      'Presenters bind the scene-authored UI to separate microphone, transcription, scoring, and progress services.',
+      'ScriptableObjects define lessons and Whisper profiles without placing mutable practice state in content assets.',
+      'Progress persistence remains independent from transcription and the bounded scoring heuristic.',
     ],
     outcome:
       'The current prototype demonstrates a complete local transcription practice loop with explicit UI states, authored lessons, saved progress, and honestly bounded scoring.',
-    futureAiDirection:
-      'Future work may explore deeper coaching, but it is not part of the current implementation.',
     plannedDirection: [
       'AI-assisted coaching with richer feedback',
       'Optional cloud scoring experiments',
       'Conversational speaking practice',
       'Generated practice scenarios',
     ],
-    nextSteps: [],
+    engineeringChallenges: [
+      {
+        title: 'Make local processing understandable',
+        problem: 'Recording, model loading, transcription, and scoring have different waiting and failure states.',
+        decision: 'Expose the workflow through presenter-owned states while keeping microphone, transcription, and progress services separate.',
+        result: 'The user can follow the path from recording to transcript and practice result without UI code owning speech logic.',
+      },
+      {
+        title: 'Keep scoring claims honest',
+        problem: 'Transcript similarity can look like pronunciation assessment even though it cannot evaluate phonemes, stress, or accent quality.',
+        decision: 'Use a transparent heuristic estimate and state its limits directly in the product and case study.',
+        result: 'The current feedback remains useful for repetition without overstating what the scorer measures.',
+      },
+      {
+        title: 'Balance local model profiles',
+        problem: 'Model choice changes latency, resource use, and recognition behaviour across different hardware and recordings.',
+        decision: 'Provide Fast, Balanced, and Accurate profiles as explicit trade-offs rather than a universal quality ranking.',
+        result: 'The prototype supports practical model selection while keeping device-dependent behaviour visible.',
+      },
+    ],
     boundaries: [
       'The scorer does not assess individual phonemes, stress, or accent quality.',
       'Recognition results depend on model profile, microphone quality, and usable clip duration.',
       'Planned coaching and conversational features are not present in the current build.',
     ],
+    repositoryUrl: 'https://github.com/kirillmakarov-dev/Fluent-Echo',
+    architectureUrl: 'https://github.com/kirillmakarov-dev/Fluent-Echo#architecture-at-a-glance',
+    setupUrl: 'https://github.com/kirillmakarov-dev/Fluent-Echo#how-to-set-up-the-project',
     videoSlot: {
       path: '/videos/case-studies/fluent/fluent-demo.mp4',
       caption: 'Current prototype flow from microphone input to local transcription and practice review.',
@@ -271,6 +238,10 @@ export const projects: ProjectCaseStudy[] = [
     id: 3,
     title: 'Hurricane Emergency',
     subtitle: 'Interactive Preparedness Simulation for WebGL',
+    projectType: 'Personal prototype',
+    period: '2026',
+    status: 'Playable prototype',
+    cardContribution: 'Built the reusable lesson flow, authored scenario model, plan validation, runtime assessment, and WebGL integration boundary.',
     shortDescription:
       'A 2D educational simulation that turns hurricane preparedness guidance into a complete decision-and-feedback loop. Learners select a scenario, build an action plan from correct choices and realistic distractors, then watch the selected sequence run in an animated scene.',
     heroDescription:
@@ -296,12 +267,6 @@ export const projects: ProjectCaseStudy[] = [
       { label: 'Assessment', value: 'Plan validation plus runtime event evaluation' },
       { label: 'Platform', value: 'Unity WebGL with a JavaScript host bridge' },
     ],
-    whatIDid: [
-      'Designed and implemented the shared lesson and simulation flow.',
-      'Built data-authored lesson definitions, rule selection, ordering, and validation.',
-      'Connected mode-owned animations to runtime assessment through simulation events.',
-      'Integrated prefab-authored UI, WebGL communication, editor tooling, and Edit Mode coverage.',
-    ],
     myRole: [
       'Application flow and simulation-mode architecture',
       'Lesson data, plan builder, and validation pipeline',
@@ -309,10 +274,6 @@ export const projects: ProjectCaseStudy[] = [
       'WebGL bridge and browser-host integration boundary',
       'Prefab-authored UI workflow, editor tools, and regression tests',
     ],
-    challenge:
-      'Ten lessons needed one predictable interaction model without moving scenario-specific animation logic into a large central controller.',
-    approach:
-      'A shared flow coordinates lesson selection, briefing, plan construction, simulation, and results. ScriptableObject assets define the educational content, while mode components execute their own sequences and report meaningful actions through a common event channel.',
     currentCapabilities: [
       'Ten selectable preparedness lessons across home, supplies, shelter, garden, and post-storm cleanup',
       'Correct and distractor choices with explicit either-or relationships',
@@ -322,11 +283,9 @@ export const projects: ProjectCaseStudy[] = [
       'Unity-native flow with an optional JavaScript host integration path',
     ],
     architecture: [
-      'LevelCatalog and LevelDefinition assets keep lesson copy, objectives, actions, distractors, modes, and expected events outside UI controllers.',
-      'GameFlowController coordinates authored screens and repeatable prefab views without constructing the permanent UI hierarchy at runtime.',
-      'SimulationManager and GameModeFactory resolve the selected ISimulationMode while each mode owns its scene-specific animation sequence.',
-      'RuleValidator checks the selected plan before launch; RuntimeStepEvaluator independently evaluates events emitted during the simulation.',
-      'WebGLBridge publishes to the internal C# channel and isolates calls to the external JavaScript host.',
+      'Level definitions keep actions, distractors, ordering policies, and expected events outside the UI flow.',
+      'The shared controller coordinates lesson selection and assessment while each simulation mode owns its scene-specific sequence.',
+      'Plan validation, runtime event evaluation, and browser communication remain separate behind explicit contracts.',
     ],
     architectureFlow: [
       { title: 'Authored lesson data', description: 'Designer-editable educational content', nodes: ['Level catalog', 'Lesson definition', 'Rules + distractors', 'Expected events'] },
@@ -335,18 +294,6 @@ export const projects: ProjectCaseStudy[] = [
       { title: 'Assessment boundary', description: 'Intent and execution are checked separately', nodes: ['Rule validator', 'Simulation events', 'Runtime evaluator', 'Live feedback'] },
       { title: 'WebGL integration', description: 'Browser-specific communication stays behind one bridge', nodes: ['WebGL bridge', 'C# event channel', 'JavaScript host'] },
     ],
-    uxNotes: [
-      'The learner commits to a plan before the animation starts, making the outcome easier to connect to the original decisions.',
-      'Some safety procedures require strict ordering, while scenarios such as Garden View accept all required actions in any order.',
-      'Immediate runtime feedback distinguishes missing, incorrect, duplicate, and out-of-order actions instead of reducing the result to one final score.',
-    ],
-    tradeoffs: [
-      'All scenario roots live in one authored simulation scene, which simplifies shared coordination but increases scene setup responsibility.',
-      'Prefab-authored UI keeps visual control in the Unity Inspector, while serialized references require deliberate validation and maintenance tools.',
-      'Stable event and callback names protect the WebGL integration contract, so animation and host-facing changes must be coordinated carefully.',
-      'Scenario modes share lifecycle and queue contracts but retain custom timing where generic execution would obscure real animation requirements.',
-    ],
-    details: [],
     engineeringChallenges: [
       {
         title: 'One flow across ten scenarios',
@@ -361,12 +308,6 @@ export const projects: ProjectCaseStudy[] = [
         result: 'The system can report incorrect selections, ordering errors, duplicates, progress, and final completion through explicit states.',
       },
       {
-        title: 'Preserve mode-specific animation',
-        problem: 'A universal animation controller would couple unrelated characters, timings, and scene objects.',
-        decision: 'Use shared queues and lifecycle contracts only where behaviour matches, leaving concrete sequences inside their scenario modes.',
-        result: 'The application flow remains consistent without erasing the differences between lesson animations.',
-      },
-      {
         title: 'Isolate WebGL communication',
         problem: 'Browser callbacks could spread platform checks throughout gameplay and make Editor iteration dependent on a host page.',
         decision: 'Route browser calls through WebGLBridge and keep a safe internal C# event path for Editor and standalone use.',
@@ -375,12 +316,10 @@ export const projects: ProjectCaseStudy[] = [
     ],
     outcome:
       'The current repository and supplied capture show a complete lesson loop from scenario selection and plan construction to animated execution, live event feedback, and completion. Source coverage includes rule validation, ordered and unordered evaluation, lesson data, and exclusive choice behaviour.',
-    nextSteps: [],
     boundaries: [
       'The portfolio presents an educational simulation prototype, not certified emergency guidance.',
       'The WebGL bridge expects host callbacks only when the build is embedded in the larger web application.',
       'Scenario visuals and timing remain authored per mode rather than generated from lesson data.',
-      'Additional screenshots will extend the gallery without changing the documented architecture.',
     ],
     repositoryUrl: 'https://github.com/kirillmakarov-dev/Hurricane-Emergency-Simulation',
     architectureUrl: 'https://github.com/kirillmakarov-dev/Hurricane-Emergency-Simulation/blob/main/Hurricane-Emergency/ARCHITECTURE.md',
@@ -391,10 +330,13 @@ export const projects: ProjectCaseStudy[] = [
   },
   {
     slug: 'everrealm-2d',
-    id: 4,
+    id: 1,
     title: 'Everrealm',
     subtitle: '2D Action-Platformer Vertical Slice',
+    projectType: 'Personal vertical slice',
+    period: '2026',
     status: 'Active Development',
+    cardContribution: 'Built the traversal, combat, loot, economy, profession progression, save flow, prefab UI, and supporting Editor tools.',
     shortDescription:
       'A Unity 6 action-platformer vertical slice combining responsive traversal, projectile combat, character progression, physical loot, trading, and a node-based skill tree in a frozen fantasy world.',
     heroDescription:
@@ -412,20 +354,14 @@ export const projects: ProjectCaseStudy[] = [
       '/images/case-studies/Everrealm_2D_Platformer/gallery-5.webp',
       '/images/case-studies/Everrealm_2D_Platformer/gallery-6.webp',
     ],
-    tags: ['Unity 2D', 'Action Platformer', 'Gameplay Architecture', 'Active Development'],
+    tags: ['Unity 2D', 'Action Platformer', 'Gameplay Architecture', 'Save + Progression'],
     technicalHighlights: ['Projectile Combat', 'Data-Driven Skills', 'Transactional Progression', 'Editor Tooling'],
     quickFacts: [
       { label: 'Scope', value: 'Playable portfolio vertical slice' },
       { label: 'World', value: 'One main level plus focused debug scenes' },
       { label: 'Combat', value: 'Projectile attacks and data-driven abilities' },
       { label: 'Progression', value: 'XP, levels, profession tree, and loadout' },
-      { label: 'Quality', value: '83 authored EditMode test attributes' },
-    ],
-    whatIDid: [
-      'Built the traversal, combat, skill, progression, inventory, loot, and economy foundations.',
-      'Separated gameplay rules from animation, UI, Physics2D adapters, audio, and VFX presentation.',
-      'Implemented stable-ID JSON persistence and transaction-oriented autosave paths.',
-      'Created authoring, validation, inspection, and setup tools alongside EditMode regression coverage.',
+      { label: 'Regression focus', value: 'Combat, purchases, saves, loot, and skill-slot conflicts' },
     ],
     myRole: [
       'Gameplay architecture and character composition',
@@ -434,10 +370,6 @@ export const projects: ProjectCaseStudy[] = [
       'Skill-tree runtime, loadout, and save integration',
       'Editor authoring tools, validators, and EditMode regression coverage',
     ],
-    challenge:
-      'A broad action-platformer loop needs clear runtime ownership so responsive movement, combat, progression, economy, UI, and persistence can evolve without collapsing into one scene-specific controller.',
-    approach:
-      'Plain C# services own gameplay rules, focused MonoBehaviour adapters connect them to Unity, and ScriptableObjects provide read-only authoring data. Prefab-authored presentation reacts to committed results rather than owning gameplay truth.',
     currentCapabilities: [
       'Rigidbody2D traversal with sprinting, coyote time, input buffering, guarded jumps, landing states, and animation-aware collider resizing',
       'Projectile attacks, combo definitions, active skills, buffs, passives, empowers, cooldowns, Energy costs, and centralized damage resolution',
@@ -447,12 +379,9 @@ export const projects: ProjectCaseStudy[] = [
       'Prefab-authored UI, JSON persistence, pooled feedback, audio routing, content validators, save inspection, and repeatable Editor builders',
     ],
     architecture: [
-      'CharacterRoot acts as the composition boundary for input, movement, facing, animation, state, hit reaction, and player combat adapters; gameplay dependencies are explicit rather than global singletons.',
-      'CombatService accepts explicit DamageRequest values and returns DamageResult values consumed by targets and presentation.',
-      'ScriptableObject definitions describe classes, attacks, skills, effects, items, loot tables, progression, and skill-tree nodes without storing mutable runtime state.',
-      'Inventory, loot, economy, skill tree, progression, and save systems communicate through focused contracts and commit only after complete operations succeed.',
-      'Prefab-first UI keeps visible controls authored in Unity while presenters bind live state and react to gameplay results.',
-      'Editor builders and validators support repeatable content setup without becoming runtime dependencies.',
+      'CharacterRoot composes input, Physics2D movement, animation, state, hit reaction, and combat through explicit dependencies.',
+      'CombatService resolves damage once; UI, animation, audio, and VFX consume the result instead of recalculating gameplay truth.',
+      'ScriptableObject content feeds transaction-oriented inventory and progression services, which persist committed state through stable IDs.',
     ],
     architectureFlow: [
       { title: 'Character traversal', description: 'Unity input and Physics2D adapted into explicit character state', nodes: ['Input router', 'Character root', 'Movement + jump', 'State + animation'] },
@@ -460,17 +389,6 @@ export const projects: ProjectCaseStudy[] = [
       { title: 'Rewards + economy', description: 'Enemy outcomes become persistent player resources', nodes: ['Enemy death', 'Loot-table roll', 'World pickup', 'Inventory + wallet', 'Merchant transaction'] },
       { title: 'Progression + persistence', description: 'Committed changes flow into the player build and save data', nodes: ['XP + level', 'Profession node', 'Skill loadout', 'Stable IDs', 'JSON autosave'] },
     ],
-    uxNotes: [
-      'Combat feedback, HUD, and animation consume gameplay state without becoming its source of truth.',
-      'Skill-tree purchases and loadout changes save only after a committed action, avoiding partially persisted transactions.',
-      'Editor builders speed up repeatable setup, while final scene and prefab references remain visible for inspection.',
-    ],
-    tradeoffs: [
-      'The project prioritizes a stable local single-player loop before introducing multiplayer adapters or replication.',
-      'ID-based saves keep assets out of serialized player data, but identifiers need stable versioning as content grows.',
-      'The systems are intentionally concentrated in a portfolio vertical slice rather than presented as a content-complete game.',
-    ],
-    details: [],
     engineeringChallenges: [
       {
         title: 'Responsive platformer movement',
@@ -490,16 +408,9 @@ export const projects: ProjectCaseStudy[] = [
         decision: 'Validate the complete operation, resolve slot conflicts, then publish committed changes and autosave stable IDs.',
         result: 'Purchases, refunds, inventory changes, and loadout updates avoid exposing partially applied state.',
       },
-      {
-        title: 'Scale content authoring',
-        problem: 'Skills, projectiles, prefabs, scenes, UI, save data, and node graphs create repetitive setup and validation work.',
-        decision: 'Build focused editors, builders, validators, and runtime inspection tools with narrow mutation boundaries.',
-        result: 'Content setup is repeatable and inspectable while runtime systems stay independent from Editor-only code.',
-      },
     ],
     outcome:
-      'The repository contains an integrated single-player vertical slice spanning traversal, projectile combat, enemy behaviour, rewards, trading, profession progression, loadouts, JSON persistence, prefab-authored UI, and dedicated Editor tooling. The source currently includes 83 authored EditMode test attributes across gameplay and UI regression suites.',
-    nextSteps: [],
+      'The gameplay capture shows a continuous traversal, combat, loot, trading, and progression loop. Repository tests target damage rules, inventory transactions, save restoration, skill purchases, and ability-versus-consumable slot conflicts.',
     boundaries: [
       'The project is an active-development portfolio vertical slice with one main gameplay level and focused debug scenes.',
       'It is currently a local single-player project; multiplayer, prediction, and replication are future work.',
@@ -508,6 +419,7 @@ export const projects: ProjectCaseStudy[] = [
     ],
     repositoryUrl: 'https://github.com/kirillmakarov-dev/Everrealm_2D_Platformer',
     architectureUrl: 'https://github.com/kirillmakarov-dev/Everrealm_2D_Platformer/blob/main/Everrealm_2D/Assets/_Game/Docs/Architecture.md',
+    setupUrl: 'https://github.com/kirillmakarov-dev/Everrealm_2D_Platformer#getting-started',
     videoSlot: {
       path: '/videos/case-studies/Everrealm_2D_Platformer/portfolio-video-everrealm_2026-09-13_18-58-18.mp4',
       caption: 'Gameplay capture featuring traversal, combat, loot, trading, profession progression, and the skill-tree flow.',

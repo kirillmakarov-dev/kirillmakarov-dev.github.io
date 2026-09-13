@@ -19,10 +19,6 @@ export default function ProjectCaseStudyPage() {
   const galleryImageClassName = project?.slug === 'fluent'
     ? 'aspect-video w-full rounded-2xl border border-[var(--border-color)] bg-[#091016] object-contain p-2'
     : 'aspect-video w-full rounded-2xl border border-[var(--border-color)] object-cover';
-  const role = project?.myRole ?? project?.whatIDid ?? [];
-  const tradeoffs = project?.tradeoffs ?? project?.uxNotes ?? [];
-  const boundaries = project?.boundaries ?? project?.nextSteps ?? [];
-
   useEffect(() => {
     if (!project) return;
 
@@ -68,14 +64,19 @@ export default function ProjectCaseStudyPage() {
           </Link>
 
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-            {project.status ?? `Case study ${project.id}`}
+            {project.projectType} · {project.period}
           </div>
         </div>
 
         <section className={`case-hero grid grid-cols-1 gap-8 ${project.heroImage ? 'lg:grid-cols-[1.1fr_0.9fr] lg:items-end' : ''}`}>
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)]">
-              {project.subtitle}
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--text-secondary)]">
+                {project.subtitle}
+              </div>
+              <div className="inline-flex items-center rounded-full border px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em]" style={{ borderColor: `${project.accent}55`, color: project.accent, backgroundColor: `${project.accent}12` }}>
+                {project.status}
+              </div>
             </div>
             <h1
               className="text-4xl font-black uppercase leading-[0.95] tracking-[0.04em] sm:text-5xl lg:text-7xl"
@@ -87,10 +88,6 @@ export default function ProjectCaseStudyPage() {
             </h1>
             <p className="mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
               {project.heroDescription}
-            </p>
-
-            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-[var(--text-primary)] sm:text-base">
-              {project.summary}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -105,7 +102,7 @@ export default function ProjectCaseStudyPage() {
               ))}
             </div>
 
-            {project.repositoryUrl || project.architectureUrl ? (
+            {project.repositoryUrl || project.architectureUrl || project.setupUrl ? (
               <div className="mt-8 flex flex-wrap gap-3">
                 {project.repositoryUrl ? (
                   <a
@@ -131,6 +128,18 @@ export default function ProjectCaseStudyPage() {
                     Architecture notes
                   </a>
                 ) : null}
+                {project.setupUrl ? (
+                  <a
+                    href={project.setupUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 px-5 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition-colors duration-300 hover:border-[var(--neon-green)]/40 hover:text-[var(--neon-green)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    <ExternalLink size={16} />
+                    Setup &amp; controls
+                  </a>
+                ) : null}
               </div>
             ) : null}
           </div>
@@ -147,24 +156,21 @@ export default function ProjectCaseStudyPage() {
         </section>
 
         <section className="case-grid mt-14 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6">
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+          <div className="flex flex-col gap-6">
+            <div className="case-panel order-1 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Overview
+                What it is
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
                 {project.shortDescription}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-                {project.challenge}
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-                {project.approach}
+                {project.summary}
               </p>
               {project.currentCapabilities?.length ? (
                 <div className="mt-6">
                   <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                    Current capabilities
+                    Implemented scope
                   </h3>
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     {project.currentCapabilities.map((item) => (
@@ -179,7 +185,7 @@ export default function ProjectCaseStudyPage() {
             </div>
 
             {project.stack.length ? (
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+            <div className="case-panel order-2 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 Technology
               </h2>
@@ -198,7 +204,7 @@ export default function ProjectCaseStudyPage() {
             ) : null}
 
             {project.videoSlot ? (
-              <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+              <div className="case-panel order-3 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
                 <div className="flex items-center gap-2 text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                   <PlayCircle size={16} className="text-[var(--magenta)]" />
                   Demo video
@@ -221,21 +227,18 @@ export default function ProjectCaseStudyPage() {
               </div>
             ) : null}
 
-            {project.architecture.length || project.architectureFlow?.length ? (
-            <div className="case-panel min-w-0 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+            {project.myRole.length ? (
+            <div className="case-panel order-4 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Architecture
+                My contribution
               </h2>
-              {project.architectureFlow?.length ? (
-                <ArchitectureFlowDiagram lanes={project.architectureFlow} accent={project.accent} />
-              ) : null}
-              <div className="mt-5 grid gap-3">
-                {project.architecture.map((item) => (
+              <div className="mt-5 space-y-3">
+                {project.myRole.map((item) => (
                   <div
                     key={item}
                     className="flex items-start gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm leading-relaxed text-[var(--text-secondary)]"
                   >
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-[var(--neon-green)]" />
+                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-[var(--cyan)]" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -243,28 +246,11 @@ export default function ProjectCaseStudyPage() {
             </div>
             ) : null}
 
-            {tradeoffs.length ? (
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
-              <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Trade-offs
-              </h2>
-              <ul className="mt-5 space-y-3">
-                {tradeoffs.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full" style={{ backgroundColor: project.accent }} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            ) : null}
-
-            {project.engineeringChallenges?.length || project.details.length ? (
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
-              <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                {project.engineeringChallenges?.length ? 'Engineering challenges' : 'Engineering notes'}
-              </h2>
-              {project.engineeringChallenges?.length ? (
+            {project.engineeringChallenges?.length ? (
+              <div className="case-panel order-5 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+                <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  Engineering challenges
+                </h2>
                 <div className="mt-5 grid gap-4">
                   {project.engineeringChallenges.map((item) => (
                     <article key={item.title} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-5">
@@ -277,45 +263,40 @@ export default function ProjectCaseStudyPage() {
                     </article>
                   ))}
                 </div>
-              ) : (
-                <div className="mt-5 space-y-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-                  {project.details.map((item) => <p key={item}>{item}</p>)}
-                </div>
-              )}
-            </div>
+              </div>
             ) : null}
 
-            {project.futureAiDirection || project.plannedDirection?.length ? (
-              <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+            {project.architecture.length || project.architectureFlow?.length ? (
+              <div className="case-panel order-6 min-w-0 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+                <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  Architecture
+                </h2>
+                {project.architectureFlow?.length ? (
+                  <ArchitectureFlowDiagram lanes={project.architectureFlow} accent={project.accent} />
+                ) : null}
+                <div className="mt-5 grid gap-3">
+                  {project.architecture.map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-start gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm leading-relaxed text-[var(--text-secondary)]"
+                    >
+                      <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-[var(--neon-green)]" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {project.plannedDirection?.length ? (
+              <div className="case-panel order-7 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
                 <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                   Planned / Future direction
                 </h2>
-                {project.futureAiDirection ? <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">{project.futureAiDirection}</p> : null}
-                {project.plannedDirection?.length ? (
-                  <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {project.plannedDirection.map((item) => <li key={item} className="rounded-2xl border border-dashed border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm text-[var(--text-secondary)]">{item}</li>)}
-                  </ul>
-                ) : null}
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {project.plannedDirection.map((item) => <li key={item} className="rounded-2xl border border-dashed border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm text-[var(--text-secondary)]">{item}</li>)}
+                </ul>
               </div>
-            ) : null}
-
-            {role.length ? (
-            <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
-              <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                My role
-              </h2>
-              <div className="mt-5 space-y-3">
-                {role.map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-4 text-sm leading-relaxed text-[var(--text-secondary)]"
-                  >
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-[var(--cyan)]" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
             ) : null}
           </div>
 
@@ -357,21 +338,21 @@ export default function ProjectCaseStudyPage() {
 
             <div className="case-panel rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Verified result
+                 Evidence
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">{project.outcome}</p>
             </div>
           </aside>
         </section>
 
-        {boundaries.length ? (
+        {project.boundaries?.length ? (
         <section className="case-panel mt-10 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
           <div className="flex items-center gap-2 text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
             <Layers3 size={16} className="text-[var(--magenta)]" />
-            Current boundaries
+            Status &amp; limitations
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
-            {boundaries.map((step) => (
+            {project.boundaries.map((step) => (
               <div key={step} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/60 p-4 text-sm leading-relaxed text-[var(--text-secondary)]">
                 {step}
               </div>

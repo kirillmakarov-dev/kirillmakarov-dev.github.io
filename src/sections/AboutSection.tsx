@@ -8,13 +8,13 @@ gsap.registerPlugin(ScrollTrigger);
 const highlights = [
   {
     icon: BadgeCheck,
-    title: 'End-to-end ownership',
-    description: 'I plan the architecture, build the systems, and shape the final presentation myself.',
+    title: 'Production perspective',
+    description: 'I connect feature decisions to delivery constraints, maintainability, and the player experience.',
   },
   {
     icon: Layers3,
-    title: 'System design',
-    description: 'I prefer modular systems, clear ownership boundaries, and workflows that stay maintainable.',
+    title: 'Cross-discipline delivery',
+    description: 'I work across gameplay, UI, networking, assets, tooling, and technical integration.',
   },
   {
     icon: Bug,
@@ -80,29 +80,22 @@ export default function AboutSection() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyan)] to-[var(--magenta)]">
-              Technical ownership
+              Professional experience
             </span>
-            <span className="block text-[var(--text-primary)]">from concept to delivery</span>
+            <span className="block text-[var(--text-primary)]">behind the case studies</span>
           </h2>
 
           <p className="about-copy mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            I am a Unity developer focused on experiences that need both strong
-            interaction design and reliable engineering. The projects here are
-            built and owned end to end by me, from architecture and implementation
-            to debugging, tooling, and presentation.
+            I am a Unity and C# developer with professional experience in commercial
+            educational products, technical leadership, and developer mentoring. The
+            case studies on this site are personal projects built to make selected
+            gameplay and engineering work publicly reviewable.
           </p>
 
           <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            I work best where gameplay clarity and engineering constraints meet: defining
-            system boundaries, tracing runtime behaviour, and making delivery trade-offs
-            explicit rather than hiding complexity behind broad claims.
-          </p>
-
-          <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            I use Codex and modern AI-assisted development tools for prototyping,
-            debugging, architecture exploration, and implementation support while
-            retaining control of the technical decisions and verification. Where it fits
-            the product, I integrate bounded capabilities such as local speech recognition.
+            I take features from system design through implementation, debugging, content
+            integration, and validation. I use AI-assisted tools to accelerate research and
+            iteration, while keeping engineering decisions and verification developer-owned.
           </p>
 
           <div className="about-copy mt-8 grid gap-4 sm:grid-cols-3">

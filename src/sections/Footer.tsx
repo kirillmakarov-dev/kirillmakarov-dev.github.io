@@ -6,11 +6,11 @@ export default function Footer() {
           (c) {new Date().getFullYear()} <span className="text-[var(--cyan)]">Kirill Makarov</span>. Unity Developer / Technical Game Developer.
         </div>
         <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-          <span>Built with</span>
-          <span className="text-[var(--magenta)]">heart</span>
-          <span>and</span>
-          <span className="text-[var(--cyan)]">precision</span>
-          <span className="ml-2 inline-block h-2 w-2 rounded-full bg-[var(--neon-green)] pulse-dot" />
+          <span>React</span>
+          <span className="text-[var(--magenta)]">·</span>
+          <span>TypeScript</span>
+          <span className="text-[var(--cyan)]">·</span>
+          <span>Vite</span>
         </div>
       </div>
     </footer>

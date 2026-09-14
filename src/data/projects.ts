@@ -1,4 +1,6 @@
-export type ProjectSlug = 'english-quest' | 'fluent' | 'hurricane-emergency' | 'everrealm-2d';
+import type { ProjectSlug } from './projectSlugs';
+
+export type { ProjectSlug } from './projectSlugs';
 
 export interface EngineeringChallenge {
   title: string;

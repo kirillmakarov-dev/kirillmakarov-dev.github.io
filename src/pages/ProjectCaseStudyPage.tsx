@@ -1,9 +1,10 @@
 import { useEffect, useMemo } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
-import { ArrowLeft, CheckCircle2, ExternalLink, Github, Layers3, PlayCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ExternalLink, Github, Layers3 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ArchitectureFlowDiagram from '../components/ArchitectureFlowDiagram';
+import ProjectVideo from '../components/ProjectVideo';
 import { getProjectBySlug } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +14,7 @@ export default function ProjectCaseStudyPage() {
   const project = useMemo(() => (slug ? getProjectBySlug(slug) : undefined), [slug]);
   const heroImageClassName = project?.slug === 'fluent'
     ? 'aspect-[4/3] w-full rounded-[18px] bg-[#091016] object-contain p-3'
-    : project?.slug === 'hurricane-emergency' || project?.slug === 'everrealm-2d'
+    : project?.slug === 'hurricane-emergency' || project?.slug === 'everrealm-2d' || project?.slug === 'english-kingdom'
       ? 'aspect-video w-full rounded-[18px] object-cover'
       : 'aspect-[4/3] w-full rounded-[18px] object-cover';
   const galleryImageClassName = project?.slug === 'fluent'
@@ -90,6 +91,13 @@ export default function ProjectCaseStudyPage() {
               {project.heroDescription}
             </p>
 
+            {project.availabilityNote ? (
+              <p className="mt-6 rounded-2xl border p-4 text-sm leading-relaxed text-[var(--text-primary)]" style={{ borderColor: `${project.accent}55`, backgroundColor: `${project.accent}0A` }}>
+                <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em]" style={{ color: project.accent }}>In development</span>
+                {project.availabilityNote}
+              </p>
+            ) : null}
+
             <div className="mt-8 flex flex-wrap gap-3">
               {project.tags.map((tag) => (
                 <span
@@ -155,6 +163,8 @@ export default function ProjectCaseStudyPage() {
           ) : null}
         </section>
 
+        {project.videoSlot?.featured ? <ProjectVideo project={project} className="mt-10" /> : null}
+
         <section className="case-grid mt-14 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="flex flex-col gap-6">
             <div className="case-panel order-1 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
@@ -184,6 +194,20 @@ export default function ProjectCaseStudyPage() {
               ) : null}
             </div>
 
+            {project.aiFeatures?.length ? (
+              <section className="case-panel order-2 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
+                <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>Where AI is used</h2>
+                <div className="mt-5 grid gap-4">
+                  {project.aiFeatures.map((feature) => (
+                    <article key={feature.title} className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)]/55 p-5">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>{feature.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">{feature.description}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
             {project.stack.length ? (
             <div className="case-panel order-2 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
               <h2 className="text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
@@ -203,29 +227,7 @@ export default function ProjectCaseStudyPage() {
             </div>
             ) : null}
 
-            {project.videoSlot ? (
-              <div className="case-panel order-3 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">
-                <div className="flex items-center gap-2 text-lg font-bold uppercase tracking-[0.14em] text-[var(--text-primary)]" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                  <PlayCircle size={16} className="text-[var(--magenta)]" />
-                  Demo video
-                </div>
-                <div className="mt-5 overflow-hidden rounded-[22px] border border-[var(--border-color)] bg-[var(--bg-primary)]/60 p-3">
-                  <video
-                    className="aspect-video w-full rounded-[18px] bg-black object-cover"
-                    controls
-                    playsInline
-                    preload="metadata"
-                    poster={project.heroImage}
-                  >
-                    <source src={project.videoSlot.path} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                  <p className="mt-3 px-1 text-sm leading-relaxed text-[var(--text-secondary)]">
-                    {project.videoSlot.caption}
-                  </p>
-                </div>
-              </div>
-            ) : null}
+            {project.videoSlot && !project.videoSlot.featured ? <ProjectVideo project={project} className="order-3" /> : null}
 
             {project.myRole.length ? (
             <div className="case-panel order-4 rounded-[24px] border border-[var(--border-color)] bg-[var(--bg-secondary)]/55 p-6">

@@ -57,12 +57,12 @@ export default function ProjectsSection() {
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyan)] via-[var(--magenta)] to-[var(--cyan)]">
-              Personal Unity case studies
+              Unity game case studies
             </span>
           </h2>
           <p className="projects-title mt-5 text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-            Four focused projects with playable demonstrations and public engineering evidence,
-            ordered for gameplay, multiplayer, WebGL, and AI-integrated Unity roles.
+            Five Unity projects with gameplay demonstrations and engineering breakdowns,
+            covering gameplay, multiplayer, WebGL, and AI-integrated learning.
           </p>
         </div>
 
@@ -80,9 +80,11 @@ export default function ProjectsSection() {
                 {project.heroImage ? (
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img
-                      src={project.heroImage}
+                      src={project.cardImage ?? project.heroImage}
                       alt={project.title}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading={project.id === 1 ? 'eager' : 'lazy'}
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/55 to-transparent" />
                     <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white/80 backdrop-blur-sm">

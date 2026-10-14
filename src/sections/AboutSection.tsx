@@ -88,8 +88,8 @@ export default function AboutSection() {
           <p className="about-copy mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
             I am a Unity and C# developer with professional experience in commercial
             educational products, technical leadership, and developer mentoring. The
-            case studies on this site are personal projects built to make selected
-            gameplay and engineering work publicly reviewable.
+            case studies on this site share selected gameplay and engineering work
+            through public projects and footage from games still in development.
           </p>
 
           <p className="about-copy mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">

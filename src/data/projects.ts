@@ -31,12 +31,21 @@ export interface ProjectCaseStudy {
   stack: string[];
   accent: string;
   heroImage?: string;
+  cardImage?: string;
+  availabilityNote?: string;
   gallery: string[];
   tags: string[];
   quickFacts: Array<{ label: string; value: string }>;
   architecture: string[];
   outcome: string;
-  videoSlot?: { path: string; caption: string };
+  videoSlot?: {
+    path: string;
+    caption: string;
+    poster?: string;
+    featured?: boolean;
+    credit?: { title: string; url: string; license: string; licenseUrl: string };
+  };
+  aiFeatures?: Array<{ title: string; description: string }>;
   repositoryUrl?: string;
   architectureUrl?: string;
   setupUrl?: string;
@@ -51,8 +60,124 @@ export interface ProjectCaseStudy {
 
 export const projects: ProjectCaseStudy[] = [
   {
+    slug: 'english-kingdom',
+    id: 1,
+    title: 'English Kingdom',
+    subtitle: 'Multiplayer English-Learning Adventure',
+    projectType: 'Game in development',
+    period: '2026',
+    status: 'Active development',
+    cardContribution: 'Developing the quest and learning systems, speech integration, multiplayer gameplay, progression, and supporting Unity tools.',
+    shortDescription:
+      'An educational Unity adventure where English practice becomes part of exploring a fantasy world: talk to NPCs, complete quests, ride horses, fight monsters, and learn through interactive activities.',
+    heroDescription:
+      'English Kingdom brings quest-driven English learning into a shared 3D world. Letter tracing, word matching, sentence building, and speaking exercises sit alongside exploration, combat, rewards, and player progression.',
+    availabilityNote:
+      'The full game and source code are not publicly available while development continues. This page shares selected gameplay footage and an overview of the systems I am developing.',
+    summary:
+      'My focus is connecting the learning loop to the game itself: authored quests launch activities, objective events advance progress, and rewards feed the inventory and progression systems. The wider project also includes a word-crafting workshop and a contextual assistant for teaching staff.',
+    stack: ['Unity 6', 'C#', 'URP', 'Photon Fusion 2', 'Whisper', 'Claude', 'Unity Cloud Code', 'Unity Cloud Save', 'ScriptableObject', 'UniTask'],
+    accent: '#F4C76B',
+    heroImage: '/images/case-studies/english-kingdom/hero.webp',
+    cardImage: '/images/case-studies/english-kingdom/cover.svg',
+    gallery: [
+      '/images/case-studies/english-kingdom/combat.webp',
+      '/images/case-studies/english-kingdom/letter-tracing.webp',
+      '/images/case-studies/english-kingdom/sentence-action.webp',
+      '/images/case-studies/english-kingdom/speaking-feedback.webp',
+    ],
+    tags: ['Unity 3D', 'Educational Gameplay', 'Multiplayer', 'AI Integration'],
+    technicalHighlights: ['Quest + Learning Systems', 'Whisper Speech Input', 'Photon Fusion', 'Tool-Calling Assistant'],
+    quickFacts: [
+      { label: 'Status', value: 'In development; no public build or source release' },
+      { label: 'Game', value: 'Shared fantasy world with quests and English activities' },
+      { label: 'Multiplayer', value: 'Photon Fusion 2 · Shared Mode' },
+      { label: 'Speech input', value: 'Local Whisper transcription + word matching' },
+      { label: 'Teaching support', value: 'Claude assistant connected through Cloud Code' },
+      { label: 'Video', value: '90 seconds · actual gameplay · web-optimized 720p' },
+    ],
+    currentCapabilities: [
+      'Data-authored quest chains, prerequisites, NPC dialogue, objective events, and educational mini-game integration.',
+      'Letter tracing, letter-to-word matching, sentence construction, action-based word ordering, and speak-aloud exercises.',
+      'Shared-world multiplayer, combat abilities, monster behaviour, loot, level-gated equipment, XP, and currency.',
+      'Horse ownership and riding, with stable purchase, return, recovery, and owner-aware network access.',
+      'A word workshop that combines collected letters into catalog words and transfers or splits them through inventory-safe operations.',
+      'Cloud-backed player progress, inventory and settings, plus additive world chunks streamed around each local player.',
+    ],
+    aiFeatures: [
+      {
+        title: 'Speech recognition inside lessons',
+        description: 'Whisper runs locally through the Unity speech integration and turns microphone input into text. The exercise then matches recognized words against authored targets and shows completion feedback. This is transcript-based practice feedback, not a phonetic pronunciation score.',
+      },
+      {
+        title: 'Contextual assistant for teaching staff',
+        description: 'A guider-only chat assistant integrates Claude through Unity Cloud Code. Tool calls look up the current quest, player context, NPCs, controls, and help articles from the game. Role checks and usage limits sit on the server. This system is implemented in the project but is not shown in the gameplay video.',
+      },
+      {
+        title: 'Utility AI for enemies',
+        description: 'A separate gameplay AI scores available actions and selects behaviours such as idle, patrol, alert, chase, attack, and return home. ScriptableObject configurations and behaviour modules tune each monster; a dedicated network adapter synchronizes its state.',
+      },
+    ],
+    myRole: [
+      'Quest progression, objective events, NPC interactions, and mini-game integration.',
+      'Local speech-recognition integration and contextual assistant tools.',
+      'Multiplayer ownership boundaries, combat behaviour, mounts, and gameplay integration.',
+      'Inventory, equipment, word crafting, economy, and persistent player progression.',
+      'Prefab-authored interface integration, content authoring tools, and focused regression tests.',
+    ],
+    architecture: [
+      'ScriptableObject content defines quests, learning activities, items, and monster behaviour; runtime services handle progression and transactions.',
+      'Gameplay components and network synchronization adapters are separate, allowing local rules and presentation to remain independent of Fusion.',
+      'Speech transcription and the cloud assistant use separate integrations: learning validation stays in the game, while assistant access and provider calls pass through Cloud Code.',
+    ],
+    architectureFlow: [
+      { title: 'Quest + learning loop', description: 'Educational activities feed ordinary game progression', nodes: ['Quest data', 'NPC + activity', 'Objective event', 'Reward + progress', 'Cloud Save'] },
+      { title: 'Speaking exercise', description: 'Local recognition followed by authored word validation', nodes: ['Microphone', 'Whisper transcript', 'Word matching', 'Lesson feedback'] },
+      { title: 'Teaching assistant', description: 'Cloud model responses grounded in build-local game data', nodes: ['Question + context', 'Cloud Code', 'Claude + tools', 'Game-data lookup', 'Reply'] },
+    ],
+    engineeringChallenges: [
+      {
+        title: 'Connect learning to progression',
+        problem: 'Different activities need to advance the same quest flow without each mini-game owning quest state.',
+        decision: 'Use authored quest configurations and objective events to report activity outcomes to the quest runtime.',
+        result: 'Learning content can share progression, rewards, and NPC unlock rules through a common boundary.',
+      },
+      {
+        title: 'Ground the assistant in the game',
+        problem: 'A general chat model cannot reliably know the player’s current objective or the controls in this build.',
+        decision: 'Provide explicit game-data tools and player context through a role-checked Cloud Code integration.',
+        result: 'Assistant requests can retrieve current quest and help information while provider access stays on the server.',
+      },
+      {
+        title: 'Keep word crafting consistent',
+        problem: 'Combining or splitting words changes several letter stacks and a separate word bank at once.',
+        decision: 'Validate and stage bag and bank changes before publishing the complete operation.',
+        result: 'Invalid compositions and capacity failures leave the player’s resources intact.',
+      },
+    ],
+    outcome:
+      'The recorded gameplay shows exploration, horseback travel, multiplayer presence, combat, NPC dialogue, learning activities, speech feedback, and rewards. The project is still in active development; this showcase is a selected view of the current game rather than a public release.',
+    boundaries: [
+      'The complete game, playable build, and source code are not publicly available during development.',
+      'The footage was captured on 8 October 2026. Systems added or expanded later, including the teaching assistant and word workshop, are described separately from the video.',
+      'Speaking feedback checks recognized words; it does not assess phonemes, stress, or accent quality.',
+    ],
+    videoSlot: {
+      path: '/videos/case-studies/english-kingdom/english-kingdom-showcase.mp4',
+      poster: '/images/case-studies/english-kingdom/video-poster.webp',
+      featured: true,
+      caption: 'A 90-second gameplay walkthrough of the fantasy world, horseback exploration, combat, quests, English activities, speaking feedback, and rewards. Selected footage from a game in development.',
+      credit: {
+        title: 'Born Of The Sky — Scott Buckley',
+        url: 'https://www.scottbuckley.com.au/library/born-of-the-sky/',
+        license: 'CC BY 4.0',
+        licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+      },
+    },
+  },
+  {
     slug: 'english-quest',
-    id: 2,
+    id: 3,
     title: 'English Quest',
     subtitle: 'Educational Unity Slice with Optional Multiplayer',
     projectType: 'Personal vertical slice',
@@ -142,7 +267,7 @@ export const projects: ProjectCaseStudy[] = [
   },
   {
     slug: 'fluent',
-    id: 4,
+    id: 5,
     title: 'Fluent',
     subtitle: 'Local Speech-Practice Prototype',
     projectType: 'Personal prototype',
@@ -237,7 +362,7 @@ export const projects: ProjectCaseStudy[] = [
   },
   {
     slug: 'hurricane-emergency',
-    id: 3,
+    id: 4,
     title: 'Hurricane Emergency',
     subtitle: 'Interactive Preparedness Simulation for WebGL',
     projectType: 'Personal prototype',
@@ -332,7 +457,7 @@ export const projects: ProjectCaseStudy[] = [
   },
   {
     slug: 'everrealm-2d',
-    id: 1,
+    id: 2,
     title: 'Everrealm',
     subtitle: '2D Action-Platformer Vertical Slice',
     projectType: 'Personal vertical slice',

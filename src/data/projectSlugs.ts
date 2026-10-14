@@ -1,4 +1,5 @@
 export const projectSlugs = [
+  'english-kingdom',
   'everrealm-2d',
   'english-quest',
   'hurricane-emergency',
